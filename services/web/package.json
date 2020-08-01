@@ -34,7 +34,7 @@
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
-    "lightning": "^1.2.10",
+    "lightning": "^2.0.30",
     "mobx": "5.15.2",
     "mobx-react": "6.1.5",
     "node-sass": "^4.14.1",
@@ -48,6 +48,6 @@
     "webpack": "^4.44.1",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
-    "webpack-merge": "4.2.2"
+    "webpack-merge": "^5.0.9"
   }
 }
