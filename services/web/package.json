@@ -1,0 +1,53 @@
+{
+  "name": "basic-site-frontend",
+  "version": "0.1.0",
+  "description": "Basic site frontend",
+  "main": "index.js",
+  "author": "Craig Hammell",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel-node ./node_modules/webpack/bin/webpack --config webpack.prod.js",
+    "start:dev": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --config webpack.dev.js",
+    "start:flat": "yarn build && env PORT=3000 yarn start:prod",
+    "start:prod": "babel-node server.js"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.0",
+    "ws": "^7.2.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "5.1.1",
+    "css-loader": "3.3.0",
+    "file-loader": "5.0.2",
+    "html-webpack-plugin": "3.2.0",
+    "koa": "2.11.0",
+    "koa-router": "^8.0.8",
+    "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "lightning": "^1.2.10",
+    "mobx": "5.15.2",
+    "mobx-react": "6.1.5",
+    "node-sass": "^4.14.1",
+    "path": "0.12.7",
+    "qrcode": "^1.4.4",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-router-dom": "5.1.2",
+    "sass-loader": "8.0.0",
+    "style-loader": "1.0.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "3.3.11",
+    "webpack-dev-server": "3.10.3",
+    "webpack-merge": "4.2.2"
+  }
+}

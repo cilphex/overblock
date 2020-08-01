@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Get relative file path for .env so this executable
+# can be run from anywhere
+FILE_PATH="$(realpath $0)"
+DIR_PATH="$(dirname $FILE_PATH)"
+BTCD_ENV_PATH="$DIR_PATH/../services/btcd/.env.local"
+
+source "$BTCD_ENV_PATH"
+
+docker-compose exec btcd btcctl \
+  $(echo "--$NETWORK") \
+  --rpccert=/rpc/rpc.cert \
+  --rpcuser=$RPCUSER \
+  --rpcpass=$RPCPASS \
+  "$@"

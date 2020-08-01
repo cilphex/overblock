@@ -1,0 +1,344 @@
+div.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  font-family: sans-serif;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 200;
+  }
+
+  h2 {
+    margin: 10px 0;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  button {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tilt {
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: rotate(-5deg);
+    }
+  }
+
+  div.checkout {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.5);
+
+    div.product {
+      width: 350px;
+      background: #FFE8D8;
+      border-radius: 5px;
+
+      div.name {
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+        background: rgba(255,0,0,0.1);
+      }
+
+      div.image {
+        margin: 20px;
+        text-align: center;
+
+        img {
+          max-height: 150px;
+        }
+      }
+
+      div.details {
+        display: flex;
+        margin: 20px;
+        background: rgba(255,255,255,0.3);
+        border: 1px solid rgba(0,0,0,0.2);
+        border-radius: 5px;
+
+        div.description {
+          width: 50%;
+          padding: 15px;
+          font-size: 14px;
+          border-right: 1px solid rgba(0,0,0,0.2);
+          box-sizing: border-box;
+
+          p {
+            margin: 0 0 5px;
+            color: #555;
+
+            &:last-of-type {
+              margin: 0;
+            }
+
+            strong {
+              font-size: 12px;
+              text-transform: uppercase;
+              color: #000;
+            }
+          }
+        }
+
+        div.price {
+          flex-grow: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 15px;
+          font-size: 18px;
+          color: #00b100;
+        }
+      }
+
+      div.invoicePaid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        font-size: 40px;
+        color: #fff;
+        text-shadow: 1px 2px 1px rgba(0,0,0,0.25);
+        background: #00c300;
+      }
+
+      div.invoice {
+        margin: 20px;
+
+        a.qrcode {
+          display: block;
+          margin: 0 0 10px;
+          padding: 8px;
+          font-size: 0;
+          text-align: center;
+          background: #fff;
+          border: 2px solid #000;
+          border-radius: 3px;
+
+          img {
+            max-width: 100%;
+          }
+        }
+
+        div.paymentRequestString {
+          display: flex;
+          height: 40px;
+
+          input[type="text"] {
+            flex-grow: 1;
+            padding: 0 10px;
+            height: 100%;
+            font-size: 14px;
+            text-overflow: ellipsis;
+            border: 2px solid #000;
+            border-radius: 3px 0 0 3px;
+            box-sizing: border-box;
+            outline: none;
+          }
+
+          button {
+            padding: 0;
+            width: 74px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 1px 2px 1px rgba(0,0,0,0.3);
+            color: #fff;
+            background: #67c0ff;
+            border: 2px solid #000;
+            border-left: none;
+            border-radius: 0 3px 3px 0;
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+              background: #7ac8ff;
+            }
+
+            &:active {
+              background: #38acff;
+            }
+          }
+
+          canvas {
+            width: 200px;
+            height: 200px;
+          }
+        }
+
+        div.waiting {
+          margin: 20px;
+          font-size: 14px;
+          color: #555;
+          text-align: center;
+
+          .danger {
+            color: red;
+          }
+
+          span {
+            font-family: monospace;
+          }
+        }
+      }
+
+      div.buyButton {
+        margin: 20px;
+        text-align: center;
+
+        button {
+          padding: 12px 18px;
+          font-size: 16px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          text-shadow: 1px 2px 1px rgba(0,0,0,0.3);
+          color: #fff;
+          background: #67c0ff;
+          border: none;
+          border-radius: 3px;
+          outline: none;
+          cursor: pointer;
+
+          &:hover {
+            background: #7ac8ff;
+          }
+
+          &:active {
+            background: #38acff;
+          }
+
+          &:disabled {
+            opacity: 0.6;
+          }
+        }
+      }
+
+      div.cancelButton {
+        margin: 20px;
+        text-align: center;
+
+        a {
+          font-size: 12px;
+          color: #888;
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  div.main {
+    flex-grow: 1;
+
+    div.header {
+      margin: 20px 0;
+      text-align: center;
+
+      h1 {
+        display: inline;
+
+        span {
+          position: absolute;
+          font-size: 13px;
+          color: red;
+        }
+      }
+
+      span.logo {
+        display: inline-block;
+        margin-right: 5px;
+        width: 35px;
+        height: 35px;
+        background: red;
+        vertical-align: bottom;
+      }
+    }
+
+    div.jumbo {
+      margin-bottom: 50px;
+      border-bottom: 1px solid #ccc;
+
+      div.shipping {
+        padding: 8px;
+        color: #fff;
+        background: #666;
+        text-align: center;
+      }
+
+      div.couch {
+        height: 500px;
+        background-image: url("/public/images/jumbo.jpg");
+        background-size: cover;
+        background-position: top center;
+      }
+    }
+
+    div.deals {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 50px;
+
+      div.deal {
+        margin: 10px;
+        padding: 15px 0;
+        min-width: 220px;
+        background: #FFE8D8;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &.selected,
+        &:hover {
+          background: #d8ecff;
+        }
+
+        div.image {
+          text-align: center;
+
+          img {
+            max-height: 100px;
+          }
+        }
+
+        div.desc {
+          padding: 15px 20px;
+          text-align: center;
+
+          div.price {
+            margin: 5px 0 0;
+            color: #01796B;
+          }
+        }
+      }
+    }
+  }
+
+  div.footer {
+    padding: 20px 80px;
+    color: #fff;
+    background: #444;
+
+    p {
+      margin: 10px 0;
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+}

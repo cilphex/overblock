@@ -1,0 +1,22 @@
+{
+  "name": "lnd-gateway",
+  "version": "0.1.0",
+  "description": "rest and websocket gateway to lnd",
+  "main": "server.js",
+  "author": "Craig Hammell",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "NODE_ENV=development babel-node server.js",
+    "start:prod": "NODE_ENV=production babel-node server.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lnd-grpc": "^0.3.4",
+    "ws": "^7.2.3"
+  }
+}

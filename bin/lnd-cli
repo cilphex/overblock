@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Get relative file path for .env so this executable
+# can be run from anywhere
+FILE_PATH="$(realpath $0)"
+DIR_PATH="$(dirname $FILE_PATH)"
+LND_ENV_PATH="$DIR_PATH/../services/lnd/.env.local"
+
+source "$LND_ENV_PATH"
+
+docker-compose exec lnd lncli \
+  --macaroonpath /shared/admin.macaroon \
+  --tlscertpath /shared/tls.cert \
+  "$@"
