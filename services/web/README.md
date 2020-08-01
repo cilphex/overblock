@@ -23,7 +23,7 @@ Run.
 
 ```sh
 yarn install
-yarn start-prod
+yarn start:prod
 ```
 
 ### Prod docker
