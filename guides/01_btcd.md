@@ -239,6 +239,15 @@ calls.
 
 This flag is necessary for `btcd` to build an index that `lnd` relies on.
 
+> _Question: It looks looks like you can create a `btcd.conf` file to specify
+runtime parameters. Why not use one?_
+>
+> Answer: Some of the parameters rely on env vars, which can be utilized through
+a script, but not through a config file. It's nice to keep all of the flags in
+the same location so they're easier to see at a glance. So they're all put in
+the startup script rather than having some flags in the startup script and some
+in an `btcd.conf` file.
+
 The last thing we call in `start-btcd.sh` is the `btcd` executable itself,
 which starts our node in the container:
 
@@ -333,4 +342,4 @@ btcd-cli -h
 ```
 
 It will take some time for the node to sync, and for now we'll just let it do
-that while we move on to the next step, `lnd`.
+that while we move on to the next step, [02: lnd](guides/02_lnd.md).
