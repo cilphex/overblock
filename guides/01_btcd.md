@@ -2,7 +2,19 @@
 
 Let's get started with `btcd`, the first microservice.
 
+1. [Overview](#Overview)
+    1. [Dockerfile](#Dockerfile)
+    2. [Docker Compose](#DockerCompose)
+    3. [Environment](#Environment)
+    4. [Startup Script](#StartupScript)
+    5. [Command Line](#CommandLine)
+2. [Running in Development](#RunningInDevelopment)
+
+<a name="Overview" />
+
 ## Overview
+
+<a name="Dockerfile" />
 
 ### Dockerfile
 
@@ -32,6 +44,8 @@ inside the `btcd` containers.
 We'll use this script rather than running `btcd` directly because `btcd` takes
 a lot of parameters, and it's easier to list those parameters and include some
 logic for them from within a script than at the command line.
+
+<a name="DockerCompose" />
 
 ### Docker Compose
 
@@ -100,6 +114,8 @@ This means: When I run `docker-compose up btcd`, run this command as soon as
 the container is ready. If a command isn't specified, the container will stop
 after starting because it won't have anything to do.
 
+<a name="Environment" />
+
 ### Environment
 
 Remember this line from `docker-compose.yaml`?
@@ -135,7 +151,9 @@ not mainnet.
 `DEBUG_LEVEL` controls what level of detail you see from the `btcd` executable
 in the `btcd` container.
 
-### start-btcd.sh
+<a name="StartupScript" />
+
+### Startup Script (start-btcd.sh)
 
 In our entry for `btcd` in `docker-compose.yaml`, there is one more important
 line:
@@ -227,7 +245,9 @@ echo "Starting btcd"
 exec btcd $PARAMS
 ```
 
-### btcd-cli
+<a name="CommandLine" />
+
+### Command Line (btcd-cli)
 
 When our `btcd` container is running, we might want to be able to query the
 node through the command line to see how it's doing. `btcd` comes packaged with
@@ -274,4 +294,8 @@ When things are up and running, you'll be able to run `btcd-cli getblockcount`
 locally, and it will print the value that `btcctl` returns from inside the
 container.
 
+<a name="RunningInDevelopment" />
+
 ## Running in Development
+
+Coming soon...
