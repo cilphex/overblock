@@ -15,13 +15,13 @@ The microservices are listed in the `./docker-compose.yaml` file.
 
 | Microservice | Purpose |
 | :--- | :--- |
-| `btc` | The [bitcoin node](https://github.com/btcsuite/btcd) |
-| `lnd` | The [lightning node](https://github.com/lightningnetwork/lnd) |
-| `lnd-gateway` | Websocket API server, makes gRPC calls to `lnd` |
-| `web` | Basic web server serving up flat files, written in React and compiled with Webpack |
+| `btc` | The [bitcoin node](https://github.com/btcsuite/btcd). |
+| `lnd` | The [lightning node](https://github.com/lightningnetwork/lnd). |
+| `lnd-gateway` | Websocket API server, makes gRPC calls to `lnd`. |
+| `web` | Basic web server serving up flat files, written in React and compiled with Webpack. |
 
 **Optional microservices**
 
 | Microservice | Purpose |
 | :--- | :--- |
-| `rtl` | Web interface for managing the lightning node |
+| `rtl` | [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL), a web interface for managing the lightning node. |

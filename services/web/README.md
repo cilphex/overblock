@@ -1,12 +1,10 @@
-# basic-site-frontend
+# web
 
-Basic website frontend using React and Webpack.
+Website frontend using React and Webpack.
 
 ### Todo
 
 - Switch from koa back to express, since the selling point for koa is unclear 
-- Get testnet btcd and lnd running locally with RTL
-- Get prod btcd and lnd running with RTL 
 
 ### Dev
 
@@ -91,22 +89,3 @@ Automatic:
   cloudbuild.yaml file has steps including build, pushing to registry, and
   deploying.
   
-### Things learned
-
-- Google Cloud Build, Run, Registry
-- Basic Koa server
-- Docker compose file
-- Basic testnet lightning payment
-- Bash PS1 no-length characters
-
-### Things I still don't understand
-
-- A Dockerfile is for building an image _and_ running a container?? It seems
-  overloaded with "install" steps but also typically ending with a command
-  (CMD). This is confusing.
-- Are some build steps being duplicated when building and running?
-- When running `yarn install --production`, why must my `package.json` have
-  dependencies that are only necessary for building (like "moment") under
-  `dependencies` rather than `devDepencencies`? Or does it not? Could do
-  `yarn install` without `--production` but then that defeats the purpose of
-  their separation in `package.json` 
