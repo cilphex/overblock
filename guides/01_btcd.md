@@ -12,11 +12,11 @@ Let's get started with `btcd`, the first microservice.
 
 <a name="Overview" />
 
-## Overview
+## 1. Overview
 
 <a name="Dockerfile" />
 
-### Dockerfile
+### 1.1 Dockerfile
 
 Take a look at `services/btcd/Dockerfile`. This file is a set of
 instructions for constructing an image for our `btcd` service.
@@ -47,7 +47,7 @@ logic for them from within a script than at the command line.
 
 <a name="DockerCompose" />
 
-### Docker Compose
+### 1.2 Docker Compose
 
 Docker-compose is a tool for managing Docker images and containers. It uses a
 Dockerfile to orchestrate them. The Dockerfile is a list of "services" (images)
@@ -116,7 +116,7 @@ after starting because it won't have anything to do.
 
 <a name="Environment" />
 
-### Environment
+### 1.3 Environment
 
 Remember this line from `docker-compose.yaml`?
 
@@ -153,7 +153,7 @@ in the `btcd` container.
 
 <a name="StartupScript" />
 
-### Startup Script (start-btcd.sh)
+### 1.4 Startup Script (start-btcd.sh)
 
 In our entry for `btcd` in `docker-compose.yaml`, there is one more important
 line:
@@ -230,7 +230,7 @@ trying to call to `btcd` with.
 
 **--rpclisten**
 
-This flag sets up --btcd to listen on the default port on the container for RPC
+This flag sets up `btcd` to listen on the default port on the container for RPC
 calls.
 
 **--txindex**
@@ -247,7 +247,7 @@ exec btcd $PARAMS
 
 <a name="CommandLine" />
 
-### Command Line (btcd-cli)
+### 1.5 Command Line (btcd-cli)
 
 When our `btcd` container is running, we might want to be able to query the
 node through the command line to see how it's doing. `btcd` comes packaged with
@@ -296,6 +296,6 @@ container.
 
 <a name="RunningInDevelopment" />
 
-## Running in Development
+## 2. Running in Development
 
 Coming soon...
