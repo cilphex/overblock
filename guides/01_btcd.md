@@ -300,4 +300,37 @@ container.
 
 ## 2. Running in Development
 
-Coming soon...
+Run this to build the `btcd` container:
+
+```shell script
+docker-compose build btcd
+```
+
+Run this to bring the container up:
+
+```shell script
+docker-compose up btcd
+```
+
+The container should start and logs from the `btcd` process should start
+printing. Take a look at them to see what it's doing.
+
+You can use `btcd-cli` to query the node and see its info:
+
+```shell script
+# Node information
+btcd-cli getinfo
+```
+
+```shell script
+# Number of blocks synced
+btcd-cli getblockcount
+```
+
+```shell script
+# Discover other commands
+btcd-cli -h
+```
+
+It will take some time for the node to sync, and for now we'll just let it do
+that while we move on to the next step, `lnd`.
