@@ -2,7 +2,7 @@
 # https://github.com/lightningnetwork/lnd/blob/master/docker/btcd/Dockerfile
 # with start-btcctl.sh lines commented out
 
-FROM golang:1.12-alpine as builder
+FROM golang:1.13-alpine as builder
 
 # Install build dependencies such as git and glide.
 RUN apk add --no-cache git gcc musl-dev

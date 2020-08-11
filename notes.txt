@@ -10,7 +10,11 @@ TODO:
 Remove all untagged images:
 - docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
 
+Remove all containers?:
+- docker container rm $(docker container ls –aq)
 
+Remove all dangling, unused, and stopped images/containers:
+- docker system prune -a
 
 
 Things learned:

@@ -1,4 +1,4 @@
-FROM node:13.13.0-alpine3.10 as builder
+FROM node:14.7.0-alpine3.11 as builder
 
 RUN apk add --no-cache --update git
 
@@ -17,7 +17,7 @@ RUN git clone $RTL_REPO . \
 COPY ./RTL-Config.json .
 
 # Start a new, final image to reduce size
-FROM node:13.13.0-alpine3.10
+FROM node:14.7.0-alpine3.11 as builder
 
 # Copy files from builder
 COPY --from=builder /src /src

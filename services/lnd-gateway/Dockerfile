@@ -1,4 +1,4 @@
-FROM node:13.13.0-alpine3.10 as builder
+FROM node:14.7.0-alpine3.11 as builder
 
 # Necessary for building grpc package
 RUN apk add --no-cache --update \
@@ -17,7 +17,7 @@ RUN yarn install
 COPY . .
 
 # Start a new, final image to reduce size
-FROM node:13.13.0-alpine3.10
+FROM node:14.7.0-alpine3.11 as builder
 
 # Copy files from builder
 COPY --from=builder /app /app
