@@ -2,6 +2,8 @@
 
 Let's get started with `btcd`, the first microservice.
 
+### Code overview
+
 First, take a look at the root-level `docker-compose.yaml`. You can see that
 the `btcd` service is the first one listed. We'll use docker-compose to bring
 up this service.
@@ -21,7 +23,7 @@ Here's the part from `docker-compose.yaml`:
 ```
 
 Next, take a look at `services/btcd/Dockerfile`. This file is a set of
-instructions for constructing an image for our btcd containers.
+instructions for constructing an image for our `btcd` containers.
 
 You'll see that the Dockerfile basically just sets up a `Go` environment and
 then downloads and installs `btcd` from github.
@@ -44,4 +46,16 @@ We use this script rather than running `btcd` directly because `btcd` takes a
 lot of parameters, and it's easier to list those parameters and include some
 logic for them from within a script than at the command line.
 
- 
+### Build
+
+```
+docker-compose build btcd
+```
+
+### Run
+
+```
+docker-compose up btcd
+```
+
+Now you can watch the blocks sync. Explain `bin/btcd-cli` here...
