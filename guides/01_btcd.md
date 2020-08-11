@@ -4,6 +4,9 @@ Let's get started with `btcd`, the first microservice.
 
 ### Code overview
 
+- (switch order of dockerfile and docker-compose)
+- (describe each part of docker-compose like command, volumes, and env_file)
+
 First, take a look at the root-level `docker-compose.yaml`. You can see that
 the `btcd` service is the first one listed. We'll use docker-compose to bring
 up this service.
