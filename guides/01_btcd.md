@@ -14,6 +14,8 @@ Let's get started with `btcd`, the first microservice.
 
 ## 1. Overview
 
+First we'll review what's in the directory before we try running it.
+
 <a name="Dockerfile" />
 
 ### 1.1 Dockerfile
