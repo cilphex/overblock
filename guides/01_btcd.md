@@ -324,7 +324,7 @@ docker-compose up btcd
 The container should start and logs from the `btcd` process should start
 printing. Take a look at them to see what it's doing.
 
-You can use `btcd-cli` to query the node and see its info:
+You can use `btcd-cli` to query the bitcoin node and see its info:
 
 ```shell script
 # Node information

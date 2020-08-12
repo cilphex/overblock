@@ -78,8 +78,9 @@ volumes:
 
   # This volume is used to persist the data/, logs/, and tls.key from ~/lnd
   # through container restarts. Note that this does not persist ~/.lnd itself,
-  # from the container. data, logs, and tls.key are specified to go to this new
-  # directory via command line options in start-lnd.sh
+  # from the container. data, logs, and tls.key are specified to go to the
+  # ~/lnd directory, which is mapped to this volume, via command line options
+  # in start-lnd.sh
   lightning_dir:
 
   # Volume for lightning admin macaroon and tls stuff

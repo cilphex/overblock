@@ -28,14 +28,21 @@ assert "$RPCUSER" "RPCUSER must be specified"
 assert "$RPCPASS" "RPCPASS must be specified"
 assert "$DEBUG_LEVEL" "DEBUG_LEVEL must be specified"
 
+PARAMS=""
+
+# For development purposes you may specify for the node to start up without a
+# seed phrase. This option should never be used in production.
+if [ "$NOSEEDBACKUP" = "true" ]; then
+  PARAMS="--noseedbackup"
+fi
+
 # --lnddir is an option, but it will override
 # --adminmacaroonpath and --tlscertpath.
 #
 # Optional:
 # --autopilot.active \
-PARAMS=$(echo \
+PARAMS=$(echo "$PARAMS" \
   "--alias=$ALIAS" \
-  --noseedbackup \
   --bitcoin.active \
   --adminmacaroonpath=/shared/admin.macaroon \
   --tlscertpath=/shared/tls.cert \
