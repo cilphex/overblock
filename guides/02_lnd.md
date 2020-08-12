@@ -82,7 +82,7 @@ lnd-cli getinfo
 lnd-cli -h
 ```
 
-Now we're ready to move on to step 3, lnd-gateway.
+Now we're ready to move on to step [03: lnd-gateway](guides/03_lnd-gateway.md).
 
 <a name="ExtraResources" />
 
