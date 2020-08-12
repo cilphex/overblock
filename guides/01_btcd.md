@@ -342,4 +342,4 @@ btcd-cli -h
 ```
 
 It will take some time for the node to sync, and for now we'll just let it do
-that while we move on to the next step, [02: lnd](guides/02_lnd.md).
+that while we move on to the next step, [02: lnd](02_lnd.md).
