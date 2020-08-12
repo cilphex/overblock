@@ -23,7 +23,7 @@ First we'll review what's in the directory before we try running it.
 Take a look at `services/btcd/Dockerfile`. This file is a set of
 instructions for constructing an image for our `btcd` service.
 
-An image is like a snapshot of an operating system with installed programs.
+> 💡 An image is like a snapshot of an operating system with installed programs.
 An image can be used to create "containers" (active, running instances of the
 image) later on.
 
@@ -239,7 +239,7 @@ calls.
 
 This flag is necessary for `btcd` to build an index that `lnd` relies on.
 
-> _Question: It looks looks like you can create a `btcd.conf` file to specify
+> 🤔 _Question: It looks looks like you can create a `btcd.conf` file to specify
 runtime parameters. Why not use one?_
 >
 > Answer: Some of the parameters rely on env vars, which can be utilized through
