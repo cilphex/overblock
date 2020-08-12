@@ -69,28 +69,135 @@ the `lnd` service is the 2nd one listed. Here's the snippet:
     command: ["./start-lnd.sh"]
 ```
 
+We've covered what most of these sections are for in the previous page for
+[btcd](01_btcd.md). Let's just cover the new ones:
 
+```yaml
+depends_on:
+  - btcd
+```
 
+This means: When I run `docker-compose up lnd`, make sure that the `btcd`
+container is already running. If it isn't, bring it up before bringing up
+`lnd`.
 
+```yaml
+ports:
+  # host:container
+  - "9735:9735"    # p2p
+  - "10009:10009"  # rpc
+```
 
-
+This means: Make these ports available outside of the container. Port `9735` in
+the container should be mapped to port `9735` in the host environment. Same for
+port `10009`.
 
 <a name="Environment" />
 
 ### 1.3 Environment
 
+Let's look at `services/lnd/.env.sample`. This will be used by docker-compose
+to put the env vars that we define here into the container. Remember that
+you'll need to copy these values into a `.env.local` file before running.
+
+What env vars are we using?
+
+```dotenv
+ALIAS=my_node_alias
+NETWORK=testnet
+BACKEND=btcd
+RPCHOST=btcd
+RPCUSER=devuser
+RPCPASS=devpass
+DEBUG_LEVEL=debug
+NOSEEDBACKUP=true
+```
+
+`ALIAS` is the name your node will have in the Lightning Network.
+
+`NETWORK` Testnet, simnet, or mainnet.
+
+`BACKEND` Bitcoin is not one specific program, it is a network, and there are
+multiple interoperable implementations of clients for this network. The primary
+client is called Bitcoin Core, and that's what most people running a "full
+node" on their desktop are running. `btcd` is a separate implemenation, and
+it's the one we're using. `lnd` wants to know which implementation it will be
+talking to, and we use this variable to tell it.
+
+> 💡 Why are we using `btcd` instead of Bitcoin Core? Because it's the example
+used in the `lnd` docs, and because some of the same developers who work on
+>`lnd` also work on `btcd`.
+
+`RPCHOST` The host URI where the Bitcoin node (`btcd`) can be found. In our
+development environment managed by Docker, our `btcd` service will be mapped
+to a local host with the same name. In the same way that you would be able to
+talk to a Bitcoin node exposed to the internet at a URI like
+`23.54.89.12:18333`, we'll be able to talk to our local instance at
+`btcd:18333`.
+
+`RPCUSER` & `RPCPASS` are credentials used by `lnd` to talk to `btcd`.
+
+`DEBUG_LEVEL` controls the level of detail printed to the logs.
+
+`NOSEEDBACKUP` is a **DEVELOPMENT ONLY** flag which tells `lnd` to start with a
+wallet created automatically, so that we do not have to go through any creation
+steps. There is no way to export the seed phrase or private key from this type
+of setup, so is only safe to use in development.
+
 <a name="StartupScript" />
 
 ### 1.4 Startup Script (start-lnd.sh)
 
-> _Question: It looks looks like you can create an `lnd.conf` file to specify
-runtime parameters. Why not use one?_
->
-> Answer: Some of the parameters rely on env vars, which can be utilized through
-> a script, but not through a config file. It's nice to keep all of the flags in
-the same location so they're easier to see at a glance. So they're all put in
-the startup script rather than having some flags in the startup script and some
-in an `lnd.conf` file.
+Just like for `btcd`, there is a command entry in our docker-compose config for
+`lnd`:
+
+```yaml
+command: ["./start-lnd.sh"]
+```
+
+This script does pretty much the same thing as the one in our `btcd` container.
+It checks to make sure that some environment variables that we rely on have
+been set, and then it starts up `lnd` with the necessary flags.
+
+> 💡 We do not use a `lnd.conf` file for the same reason that we do not use a
+`btcd.conf` in that node. All of the flags are specified in the startup script
+because some rely on env vars which are accessible there.
+
+**--noseedbackup**
+
+**--alias**
+
+**--bitcoin.active**
+
+**--adminmacaroonpath**
+
+**--tlscertpath**
+
+**--tlskeypath**
+
+**--tlsextraip**
+
+**--tlsextradomain**
+
+**--datadir**
+
+**--logdir**
+
+**--bitcoin.$NETWORK**
+
+**--bitcoin.node**
+
+**--$BACKEND.rpccert**
+
+**--$BACKEND.rpchost**
+
+**--$BACKEND.rpcuser**
+
+**--$BACKEND.rpcpass**
+
+**--rpclisten**
+
+**--debuglevel**
 
 <a name="CommandLine" />
 
