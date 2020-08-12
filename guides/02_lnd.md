@@ -56,6 +56,34 @@ Run this to build the `lnd` container:
 docker-compose build lnd
 ```
 
+Run this command to bring the container up:
+
+```shell script
+docker-compose up lnd
+```
+
+The container should start and logs from the `lnd` process should start
+printing. Take a look at them to see what it's doing. If your `btcd` node is
+still syncing, you should see a line like this:
+
+```
+Waiting for chain backend to finish sync, start_height=1383532
+```
+
+You can use `lnd-cli` to query the lightning node and see its info:
+
+```shell script
+# Node information
+lnd-cli getinfo
+```
+
+```shell script
+# Discover other commands
+lnd-cli -h
+```
+
+Now we're ready to move on to step 3, lnd-gateway.
+
 <a name="ExtraResources" />
 
 ## 3. Extra Resources
