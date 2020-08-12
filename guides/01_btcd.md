@@ -272,7 +272,7 @@ the container every time we want to run a `btcctl` command, but that's a lot of
 effort.
 
 Instead, we can put the task of calling the container's `btcctl` program inside
-of a script. That script is `services/bin/btcd-cli`. Since it's an executable
+of a script. That script is `bin/btcd-cli`. Since it's an executable
 script, we put it in the `bin` directory.
 
 The script essentially does this:

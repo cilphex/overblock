@@ -38,7 +38,7 @@ RUN chmod +x start-lnd.sh
 ```
 
 Once again, we'll use this script to start `lnd` inside the container rather
-than running `lnd` directly because `btcd` takes a lot of parameters, and it's
+than running `lnd` directly because `lnd` takes a lot of parameters, and it's
 easier to list those parameters and include some logic for them from within a
 script than at the command line.
 
@@ -89,8 +89,8 @@ ports:
 ```
 
 This means: Make these ports available outside of the container. Port `9735` in
-the container should be mapped to port `9735` in the host environment. Same for
-port `10009`.
+the container should be mapped to port `9735` in the host environment (your
+computer). Same for port `10009`.
 
 <a name="Environment" />
 
@@ -202,6 +202,29 @@ because some rely on env vars which are accessible there.
 <a name="CommandLine" />
 
 ### 1.5 Command Line
+
+Similar to how the `btcd` node comes packaged with a command-line program
+called `btcctl`, the `lnd` node comes packaged with a command-line program
+called `lncli`.
+
+Just like how we provide a script called `btcd-cli` to wrap `btcctl` so that
+we can run commands for the node inside the container from outside of the
+container, we provide a script called `lnd-cli` to wrap `lncli` for the same
+purpose.
+
+The script is located at `bin/lnd-cli`.
+
+```shell script
+docker-compose exec lnd lncli \
+  --macaroonpath /shared/admin.macaroon \
+  --tlscertpath /shared/tls.cert \
+  "$@"
+```
+
+Note how `lncli` requires some credentials to query `lnd` inside the container:
+`--macaroonpath` and `--tlscertpath`. Since we provide a custom path for the
+location of these credential files in `services/lnd/start-lnd.sh`, we need to
+specify those custom paths here.
 
 <a name="RunningInDevelopment" />
 
