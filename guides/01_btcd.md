@@ -53,26 +53,27 @@ logic for them from within a script than at the command line.
 
 <a name="DockerCompose" />
 
-### 1.2 Docker Compose
+### 1.2 docker-compose
 
-Docker-compose is a tool for managing Docker images and containers. It uses a
-Dockerfile to orchestrate them. The Dockerfile is a list of "services" (images)
-and how to build them and run them as containers. Once we write it, we can use
-the command line to build images and start & stop containers.
+docker-compose is a tool for managing Docker images and containers. It uses a
+`docker-compose.yaml` file to orchestrate them. The `docker-compose.yaml` file
+is a list of "services" (images) and how to build them and run them as
+containers. Once we write it, we can use the command line to build images and
+start & stop containers.
 
 Take a look at the root-level `docker-compose.yaml`. You can see that
 the `btcd` service is the first one listed. Here's the snippet:
 
 ```yaml
-  btcd:
-    image: btcd
-    container_name: btcd
-    build: ./services/btcd/
-    env_file: ./services/btcd/.env.local
-    volumes:
-      - btcd_data:/data
-      - shared_rpc_data:/rpc
-    command: ["./start-btcd.sh"]
+btcd:
+  image: btcd
+  container_name: btcd
+  build: ./services/btcd/
+  env_file: ./services/btcd/.env.local
+  volumes:
+    - btcd_data:/data
+    - shared_rpc_data:/rpc
+  command: ["./start-btcd.sh"]
 ```
 
 Let's break it down.

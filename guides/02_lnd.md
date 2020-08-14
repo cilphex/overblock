@@ -5,7 +5,7 @@ setup is very similar to `btcd`.
 
 1. [Overview](#Overview)
     1. [Dockerfile](#Dockerfile)
-    2. [Docker Compose](#DockerCompose)
+    2. [docker-compose](#DockerCompose)
     3. [Environment](#Environment)
     4. [Startup Script](#StartupScript)
     5. [Command Line](#CommandLine)
@@ -48,29 +48,29 @@ script than at the command line.
 
 <a name="DockerCompose" />
 
-### 1.2 Docker Compose
+### 1.2 docker-compose
 
 Take a look at the root-level `docker-compose.yaml`. You can see that
 the `lnd` service is the 2nd one listed. Here's the snippet:
 
 ```yaml
-  lnd:
-    image: lnd
-    container_name: lnd
-    build: ./services/lnd/
-    env_file: ./services/lnd/.env.local
-    volumes:
-      # Notes on what each of these are for are in the `volumes` section below
-      - shared_rpc_data:/rpc
-      - lightning_dir:/lnd
-      - shared_lightning_creds:/shared
-    depends_on:
-      - btcd
-    ports:
-      # host:container
-      - "9735:9735"    # p2p
-      - "10009:10009"  # rpc
-    command: ["./start-lnd.sh"]
+lnd:
+  image: lnd
+  container_name: lnd
+  build: ./services/lnd/
+  env_file: ./services/lnd/.env.local
+  volumes:
+    # Notes on what each of these are for are in the `volumes` section below
+    - shared_rpc_data:/rpc
+    - lightning_dir:/lnd
+    - shared_lightning_creds:/shared
+  depends_on:
+    - btcd
+  ports:
+    # host:container
+    - "9735:9735"    # p2p
+    - "10009:10009"  # rpc
+  command: ["./start-lnd.sh"]
 ```
 
 We've covered what most of these sections are for in the previous page for
