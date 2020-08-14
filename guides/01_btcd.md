@@ -15,9 +15,9 @@ Let's get started with `btcd`, the first microservice.
 ## 1. Overview
 
 All we're trying to do is get to a state where we can tell some `btcd` process
-to start or stop, so that when it is running we can use it to do Lightning
-Network things. [btcd](https://github.com/btcsuite/btcd) is an existing project
-so we're not actually writing any crypto logic, we're just setting up a process
+to start or stop, so that when it is running we can use it to do Bitcoin
+things. [btcd](https://github.com/btcsuite/btcd) is an existing project so
+we're not actually writing any crypto logic, we're just setting up a process
 for downloading and running that program with our specific parameters.
 
 <a name="Dockerfile" />
