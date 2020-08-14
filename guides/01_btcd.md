@@ -14,7 +14,11 @@ Let's get started with `btcd`, the first microservice.
 
 ## 1. Overview
 
-First we'll review what's in the directory before we try running it.
+All we're trying to do is get to a state where we can tell some `btcd` process
+to start or stop, so that when it is running we can use it to do Lightning
+Network things. [btcd](https://github.com/btcsuite/btcd) is an existing project
+so we're not actually writing any crypto logic, we're just setting up a process
+for downloading and running that program with our specific parameters.
 
 <a name="Dockerfile" />
 
@@ -201,6 +205,10 @@ PARAMS=$(echo "$PARAMS" \
 
 This is the part where we establish the flags that we're going to start the
 `btcd` process with.
+
+(More details on the following flags and others can be found in the
+[sample-btcd.conf](https://github.com/btcsuite/btcd/blob/master/sample-btcd.conf)
+from the main `btcd` project.)
 
 **--rpcuser and --rpcpass**
 

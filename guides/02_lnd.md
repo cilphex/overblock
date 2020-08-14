@@ -16,7 +16,11 @@ setup is very similar to `btcd`.
 
 ## 1. Overview
 
-First we'll review what's in the directory before we try running it.
+All we're trying to do is get to a state where we can tell some `lnd` process
+to start or stop, so that when it is running we can use it to do Lightning
+Network things. [lnd](https://github.com/lightningnetwork/lnd) is an existing
+project so we're not actually writing any crypto logic, we're just setting up a
+process for downloading and running that program with our specific parameters.
 
 <a name="Dockerfile" />
 
@@ -163,41 +167,157 @@ been set, and then it starts up `lnd` with the necessary flags.
 `btcd.conf` in that node. All of the flags are specified in the startup script
 because some rely on env vars which are accessible there.
 
+(More details on the following flags and others can be found in the
+[sample-lnd.conf](https://github.com/lightningnetwork/lnd/blob/master/sample-lnd.conf)
+from the main `lnd` project.)
+
+```shell script
+# Comments removed
+PARAMS=""
+
+if [ "$NOSEEDBACKUP" = "true" ]; then
+  PARAMS="--noseedbackup"
+fi
+
+PARAMS=$(echo "$PARAMS" \
+  "--alias=$ALIAS" \
+  --bitcoin.active \
+  --adminmacaroonpath=/shared/admin.macaroon \
+  --tlscertpath=/shared/tls.cert \
+  --tlskeypath=/lnd/tls.key \
+  --tlsextraip=0.0.0.0 \
+  --tlsextradomain=lnd \
+  --datadir=/lnd/data \
+  --logdir=/lnd/logs \
+  "--bitcoin.$NETWORK" \
+  "--bitcoin.node=$BACKEND" \
+  "--$BACKEND.rpccert=/rpc/rpc.cert" \
+  "--$BACKEND.rpchost=$RPCHOST" \
+  "--$BACKEND.rpcuser=$RPCUSER" \
+  "--$BACKEND.rpcpass=$RPCPASS" \
+  "--rpclisten=0.0.0.0:10009" \
+  "--debuglevel=$DEBUG_LEVEL"
+)
+```
+
 **--noseedbackup**
+
+This means that when we start `lnd`, it will initialize a new wallet
+automatically if one does not already exist. The private keys & seed phrase
+will be inaccessible. It is a *development-only* flag, never to be used in
+production.
 
 **--alias**
 
+The nickname that your node will be given inside the Lightning network.
+
 **--bitcoin.active**
+
+If the "bitcoin chain should be active". To be honest, I don't know why the
+bitcoin chain wouldn't be active, but this seems to be necessary. Please open
+a pull request to update this text if you know more.
 
 **--adminmacaroonpath**
 
+Specifies the admin macaroon path, a credential file for interfacing with
+`lnd`. We specify the location of this file so that it is isolated in its own
+directory that we map to a volume. The volume allows the file to persist
+through container rebuilds, and also to be accessible by our next service,
+`lnd-gateway`.
+
+Note that the location we specify is a directory called `/shared`, which is
+separate from the `/lnd` directory/volume that we specify for `--datadir`
+and `--logdir` below. Why do we do that?
+
+By default, the admin macaroon path would be stored in the data directory. We
+want to use a volume to share these credentials between services but we don't
+need all of `lnd`'s data, such as channel states, to be accessible by other
+processes. So we put the data that we want to persist into its own
+directory/volume at `/data`, and the shared credentials into a separate
+directory/volume to isolate them.
+
 **--tlscertpath**
+
+Path to TLS certificate for `lnd`'s RPC and REST services. We put this in the
+`/shared` directory for the same reason as `--adminmacaroonpath`.
 
 **--tlskeypath**
 
+Path to TLS private key for lnd's RPC and REST services. This is the private
+part of the 2-key set. We want it to persist through rebuilds and be accessible
+by `lnd` but not by any other process, so we put it in `/lnd`
+
 **--tlsextraip**
+
+`lnd` generates a TLS certificate on startup. To be honest, I'm not super 
+familiar with how certificates function. But for the certificate to work for
+us, it needs to have a concept of the domains that it should cover, and since
+we want our `lnd` to be accessible through `0.0.0.0`, we need to specify that
+IP here for the certificate to work when we try to use the TLS certificat that
+is generated to access `lnd` through that IP.
 
 **--tlsextradomain**
 
+We also want to be able to access `lnd` through the docker network host that
+will be created and which will be named after our servce. Our service will
+be named `lnd` and will be accessible locally through that host name. We want
+that host name to be covered by the TLS certificate, so we must specify it
+here.
+
 **--datadir**
+
+Location of `lnd`'s data, like transactions, channel states, and wallet info.
 
 **--logdir**
 
+Where logs will be written to.
+
 **--bitcoin.$NETWORK**
+
+This flag is confusing because it would be easier to read if it looked like
+this: `--bitcoin.network=testnet`. Instead, there are separate flags for each
+network, so to activate testnet you simply pass `--bitcoin.testnet`, which
+specifies that the network will be `testnet`.
 
 **--bitcoin.node**
 
+Specify what type of node backend `lnd` will be talking to. In our case, `btcd`.
+
 **--$BACKEND.rpccert**
+
+The location of the certificate for accessing `btcd`, our first service.
+It will be located in the `/rpc` directory because in our `btcd` project in the
+`start-btcd.sh` script, we specified `/rpc` as the location for the
+certificate. Then we mapped `/rpc` to the same shared volume for both the
+`btcd` container and the `lnd` container, so they can both read from and write
+to there.
+
+> TODO: Should the rpc.key in the btcd project NOT be in /rpc since it's a
+shared directory?
 
 **--$BACKEND.rpchost**
 
+Note that with our environment variable `BACKEND=btcd` in the `.env` file, this
+line is actually `--btcd.rpchost`. This is telling lightning that it can find
+our bitcoin node at a host named `btcd`.
+
 **--$BACKEND.rpcuser**
+
+Username for RPC connections to `btcd`.
 
 **--$BACKEND.rpcpass**
 
+Password for RPC connections to `btcd`.
+
 **--rpclisten**
 
+The interface to listen to gRPC requests on. Note that this should match the
+value for `--tlsextraip` above. (It is possible to listen on multiple
+interfaces but we're not doing that.)
+
 **--debuglevel**
+
+The level of detail to be printed to the logs.
 
 <a name="CommandLine" />
 
