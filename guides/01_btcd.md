@@ -14,7 +14,11 @@ Let's get started with `btcd`, the first microservice.
 
 ## 1. Overview
 
-First we'll review what's in the directory before we try running it.
+All we're trying to do is get to a state where we can tell some `btcd` process
+to start or stop, so that when it is running we can use it to do Lightning
+Network things. [btcd](https://github.com/btcsuite/btcd) is an existing project
+so we're not actually writing any crypto logic, we're just setting up a process
+for downloading and running that program with our specific parameters.
 
 <a name="Dockerfile" />
 
@@ -23,7 +27,7 @@ First we'll review what's in the directory before we try running it.
 Take a look at `services/btcd/Dockerfile`. This file is a set of
 instructions for constructing an image for our `btcd` service.
 
-An image is like a snapshot of an operating system with installed programs.
+> 💡 An image is like a snapshot of an operating system with installed programs.
 An image can be used to create "containers" (active, running instances of the
 image) later on.
 
@@ -202,6 +206,10 @@ PARAMS=$(echo "$PARAMS" \
 This is the part where we establish the flags that we're going to start the
 `btcd` process with.
 
+(More details on the following flags and others can be found in the
+[sample-btcd.conf](https://github.com/btcsuite/btcd/blob/master/sample-btcd.conf)
+from the main `btcd` project.)
+
 **--rpcuser and --rpcpass**
 
 These are set from our env vars, which come from the `.env.local` we specified
@@ -239,7 +247,7 @@ calls.
 
 This flag is necessary for `btcd` to build an index that `lnd` relies on.
 
-> _Question: It looks looks like you can create a `btcd.conf` file to specify
+> 🤔 _Question: It looks looks like you can create a `btcd.conf` file to specify
 runtime parameters. Why not use one?_
 >
 > Answer: Some of the parameters rely on env vars, which can be utilized through
@@ -272,7 +280,7 @@ the container every time we want to run a `btcctl` command, but that's a lot of
 effort.
 
 Instead, we can put the task of calling the container's `btcctl` program inside
-of a script. That script is `services/bin/btcd-cli`. Since it's an executable
+of a script. That script is `bin/btcd-cli`. Since it's an executable
 script, we put it in the `bin` directory.
 
 The script essentially does this:
@@ -342,4 +350,4 @@ btcd-cli -h
 ```
 
 It will take some time for the node to sync, and for now we'll just let it do
-that while we move on to the next step, [02: lnd](guides/02_lnd.md).
+that while we move on to the next step, [02: lnd](02_lnd.md).
