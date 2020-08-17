@@ -1,4 +1,4 @@
-# 02: lnd
+# 2. lnd
 
 The next microservice to get up and running is the Lightning node, `lnd`. The
 setup is very similar to `btcd`.

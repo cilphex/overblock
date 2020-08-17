@@ -17,7 +17,7 @@ RUN yarn install
 COPY . .
 
 # Start a new, final image to reduce size
-FROM node:14.7.0-alpine3.11 as builder
+FROM node:14.7.0-alpine3.11
 
 # Copy files from builder
 COPY --from=builder /app /app

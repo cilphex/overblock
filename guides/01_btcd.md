@@ -1,4 +1,4 @@
-# 01: btcd
+# 1. btcd
 
 Let's get started with `btcd`, the first microservice.
 
