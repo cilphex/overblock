@@ -15,6 +15,30 @@ it to proxy a limited set of gRPC requests to `lnd`.
 
 ## 1. Overview
 
+When we get our website up and running, we're going to want a way to generate
+Lightning invoices so that we can display them as a QR code to the user.
+
+Generating the invoice and detecting when we receive a payment for it are
+things that happen inside of `lnd`. `lnd` lets you create an invoice and has a
+callback for payment detection through its gRPC interface.
+
+But web browsers don't generally make gRPC requests. They make http REST
+requests. (GET, POST, that kind of thing.) Browsers also support websockets
+for more realtime, 2-way, streaming communication between client and server.
+
+So rather than make the browser try to talk to `lnd` directly, we'd like to
+make a little middleman process. This middleman process will let web browsers
+connect to it through websockets, will receive their requests for payment
+invoice generation, and forward them to `lnd` through gRPC. It will also do the
+reverse: listen to `lnd` through its gRPC callback stream and broadcast payment
+detection back to the browser through its websocket connection.
+
+In addition to being a translator between websockts and gRPC, having a
+middleman service is important because it allows us to keep any gRPC-related
+credentials a secret, not exposed to the browser. We can also keep our `lnd`
+instance exposed only to our other processes, and not the whole internet, which
+is great for security and control.
+
 <a name="Dockerfile" />
 
 ### 1.1 Dockerfile
