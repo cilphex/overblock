@@ -17,7 +17,7 @@ RUN apk add --no-cache --update alpine-sdk \
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 
 # Pin down lnd to a version that we trust to work
-ARG LND_VERSION=v0.10.0-beta
+ARG LND_VERSION=v0.11.0-beta
 
 RUN git clone https://github.com/lightningnetwork/lnd.git . \
     && git checkout $LND_VERSION \
