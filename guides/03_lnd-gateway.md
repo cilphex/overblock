@@ -35,9 +35,9 @@ detection back to the browser through its websocket connection.
 
 In addition to being a translator between websockts and gRPC, having a
 middleman service is important because it allows us to keep any gRPC-related
-credentials a secret, not exposed to the browser. We can also keep our `lnd`
-instance exposed only to our other processes, and not the whole internet, which
-is great for security and control.
+credentials for `lnd` a secret, not exposed to the browser. We can also keep
+our `lnd` instance exposed only to our other processes, and not the whole
+internet, which is great for security and control.
 
 <a name="Dockerfile" />
 
