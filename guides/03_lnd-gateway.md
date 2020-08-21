@@ -266,7 +266,8 @@ container - unless:
 
 ### 2.1 Running as a local process
 
-> ⚠️ TODO: Need to first generate the base64 certs and put them in .env.local
+> ⚠️ TODO: Need to first generate the base64 certs and put them in .env.local.
+Include what address(es) to visit in the browser to verify.
 
 Run this:
 
