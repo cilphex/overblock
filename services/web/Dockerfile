@@ -18,9 +18,5 @@ RUN yarn install
 # Build the flat files that will be served
 RUN yarn build
 
-# Intentionally do not specify PORT in this file so that it must be specified
-# through the environment.
-# ENV PORT=
-
-# Expose port
+# Expose port that is specified in the env vars
 EXPOSE $PORT
