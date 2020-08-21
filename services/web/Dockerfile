@@ -1,4 +1,3 @@
-# Use official Node runtime as a parent image
 FROM node:14.7.0-alpine3.11 as builder
 
 # Necessary for building grpc package
