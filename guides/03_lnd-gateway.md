@@ -165,17 +165,21 @@ specified in your environment.
 
 #### 1.3.2 .env.local
 
+```dotenv
 LND_HOST=0.0.0.0:10009
 PORT=4040
 LND_BASE64_CERT=
 LND_BASE64_MACAROON=
+```
 
 #### 1.3.3 .env.docker
 
+```dotenv
 LND_HOST=lnd:10009
 PORT=80
 LND_MACAROON_PATH=/shared/admin.macaroon
 LND_CERT_PATH=/shared/tls.cert
+```
 
 <a name="StartupScript" />
 
