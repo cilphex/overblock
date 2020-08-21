@@ -8,14 +8,11 @@ RUN apk add --no-cache --update \
 # Create the app dir and make it the working dir
 WORKDIR /app
 
-# Copy install file
-COPY package.json .
+# Copy the app files
+COPY . .
 
 # Install dependencies
 RUN yarn install
-
-# Copy the rest of the app files
-COPY . .
 
 # Expose a port
 EXPOSE $PORT
