@@ -39,7 +39,7 @@ services:
       - lnd
     ports:
       # host:container
-      - "4040:4040"
+      - "4040:80"
     command: ["yarn", "start:prod"]
 
   web:

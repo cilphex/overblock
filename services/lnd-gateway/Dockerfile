@@ -14,15 +14,8 @@ COPY package.json .
 # Install dependencies
 RUN yarn install
 
+# Copy the rest of the app files
 COPY . .
 
-# Start a new, final image to reduce size
-FROM node:14.7.0-alpine3.11
-
-# Copy files from builder
-COPY --from=builder /app /app
-
-# Starting command that is run will run from here
-WORKDIR /app
-
-EXPOSE 4040
+# Expose a port
+EXPOSE $PORT

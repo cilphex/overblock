@@ -12,6 +12,7 @@ const macaroonPath   = process.env.LND_MACAROON_PATH;
 const base64Cert     = process.env.LND_BASE64_CERT;
 const base64Macaroon = process.env.LND_BASE64_MACAROON;
 const host           = process.env.LND_HOST;
+const port           = process.env.PORT;
 
 const cert = (() => {
   if (certPath) return certPath;
@@ -29,11 +30,12 @@ grpc.on('locked', () => console.log('grpc locked'));
 grpc.on('active', () => console.log('grpc active/unlocked'));
 grpc.on('disconnected', () => console.log('grpc disconnected'));
 
-const listenPort = 4040;
 const expressApp = express();
-const server = expressApp.listen(listenPort);
+const server = expressApp.listen(port);
 const wss = new WebSocket.Server({ server });
-console.log('listening on port', listenPort);
+
+console.log('listening on port', port);
+console.log('If this process is running in a container, it may be mapped to a different host port.');
 
 let Lightning;
 

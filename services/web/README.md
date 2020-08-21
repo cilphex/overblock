@@ -5,6 +5,7 @@ Website frontend using React and Webpack.
 ### Todo
 
 - Switch from koa back to express, since the selling point for koa is unclear 
+- lnd-gateway URI should be specified via env var
 
 ### Dev
 
