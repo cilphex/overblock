@@ -1,7 +1,7 @@
 {
   "name": "lnd-gateway",
   "version": "0.1.0",
-  "description": "rest and websocket gateway to lnd",
+  "description": "Rest and websocket gateway to lnd",
   "main": "server.js",
   "author": "Craig Hammell",
   "license": "MIT",

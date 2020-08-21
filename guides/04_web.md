@@ -68,24 +68,47 @@ web:
   command: ["yarn", "start:prod"]
 ```
 
-
-
-
-
-
-
-
-
-
-
+It looks like we've covered all these parts in previous guides, so we're good
+to go.
 
 <a name="Environment" />
 
 ### 1.3 Environment
 
+Let's look at `.env.sample`:
+
+```dotenv
+PORT=
+```
+
+This is our only value, so the env vars for `web` are pretty simple.
+
+Just note that this time around, we don't actually use a `.env.local`. In
+development we use the react dev server, which chooses its own port.
+`.env.docker` is still used in docker, and we will still need to specify a
+`PORT` in our production environment.
+
+
 <a name="StartupScript" />
 
 ### 1.4 Startup Script
+
+In our `docker-compose.yaml` we saw that our startup command is this:
+
+```yaml
+command: ["yarn", "start:prod"]
+```
+
+We know that this is running the `start:prod` script from our `package.json`,
+so let's look at that.
+
+```json
+"start:prod": "babel-node server.js"
+```
+
+Like with `lnd-gateway`, we're just running our server, as processed through
+babel so we can use some modern but not-yet-supported-in-node-by-default
+javascript language features.
 
 <a name="ServerJs" />
 
@@ -107,9 +130,35 @@ code, and is listed in the `.gitignore` file.
 
 ### 1.6 webpack
 
+For our server to serve files from `build`, our app files need to be compiled
+and put in there first. That's what Webpack does - it's a tool for compiling
+our project.
+
+Webpack is extremely flexible and can do lots of fancy things. It can turn sass
+into css. It can resize your .png files and move them from /src to /dest,
+skipping ones with "-test" in the name. It can probably compile your cat into a
+toaster and ship it to Mars.
+
+Each of these things can be done with modules and plugins specific to the task.
+So if somebody can make a module or plugin to do, I guess basically anything in
+javascript, it can be put into a webpack pipeline and applied to your files.
+
+In our case, we just want to use it to transform React files into regular html
+and javascript, and put the result into the `/build` directory.
+
+
+
+TODO: COMPLETE ME
+
+
+
 <a name="CommandLine" />
 
 ### 1.7 Command Line
+
+There is no command line for `web`. Like `lnd-gateway`, it is not complicated
+enough to justify one, and since the successful output is a web app anyway, we
+just interact with it through the browser.
 
 <a name="RunningInDevelopment" />
 

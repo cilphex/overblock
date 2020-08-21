@@ -1,7 +1,7 @@
 {
-  "name": "basic-site-frontend",
+  "name": "web",
   "version": "0.1.0",
-  "description": "Basic site frontend",
+  "description": "Overblock web frontend",
   "main": "index.js",
   "author": "Craig Hammell",
   "license": "MIT",
