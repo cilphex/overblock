@@ -143,7 +143,7 @@ We have `.env.local` to use when we're running as a local process, and
 
 
 
-*⚠️ TODO: List all env vars and complete me*
+> ⚠️ TODO: List all env vars and complete me
 
 
 
