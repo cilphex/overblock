@@ -116,7 +116,37 @@ we see `["yarn", "start:prod"]`. We'll break down what that means in the
 
 ### 1.1 Environment
 
-TODO: describe why there's a .env.local and a .env.docker.
+Like in `btcd` and `lnd`, there is a sample env file at
+`services/lnd-gateway/.env.sample` we can take a look at to see what variables
+are necessary.
+
+Note however that this time around, there are not only different values, but
+different keys, too. For example, in the development section we see this var:
+
+```
+LND_BASE64_CERT=
+```
+
+But in the prod section we see this one:
+
+```
+LND_CERT_PATH=
+```
+
+Since we have different env vars for running as a local process (development)
+vs running in a container (pseudo-production), we are going to use two
+different .env files.
+
+We have `.env.local` to use when we're running as a local process, and
+`.env.docker` for running as a container.
+
+
+
+
+*⚠️ TODO: List all env vars and complete me*
+
+
+
 
 When running `server.js` locally, we do not have access to the shared volume
 that `lnd` created and stuck its credentials in. So we cannot point to those
