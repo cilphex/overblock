@@ -43,6 +43,12 @@ internet, which is great for security and control.
 
 ### 1.1 Dockerfile
 
+Take a look at `services/lnd-gateway/Dockerfile`.
+
+All this Dockerfile does is set up a node environment, copies the
+`package.json` file and installs dependencies, then copies our app files. It
+also exposes a port on the container.
+
 <a name="DockerCompose" />
 
 ### 1.1 docker-compose
