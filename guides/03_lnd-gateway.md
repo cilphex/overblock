@@ -8,7 +8,8 @@ it to proxy a limited set of gRPC requests to `lnd`.
     2. [docker-compose](#DockerCompose)
     3. [Environment](#Environment)
     4. [Startup Script](#StartupScript)
-    5. [Command Line](#CommandLine)
+    5. [server.js](#ServerJs)
+    6. [Command Line](#CommandLine)
 2. [Running in Development](#RunningInDevelopment)
 
 <a name="Overview" />
@@ -241,9 +242,36 @@ setting the `NODE_ENV` environment variable at command execution time, and
 `server.js` as an argument and then manipulates it to let us use some more
 modern javascript features which aren't valid by default, then runs it.
 
+<a name="ServerJs" />
+
+### 1.5 server.js
+
+Open up `server.js` and take a look, just to see what we're actually running
+when we start up.
+
+It first does some sanity checking on the env vars that we've provided, based
+on whether we're in a development or production environment.
+
+Then we create a new [LndGrpc](https://github.com/LN-Zap/node-lnd-grpc)
+instance with our credentials to handle actual gRPC requests to `lnd`. 
+Take a moment to be thankful that such a library exists and that we don't need
+to write it ourselves.
+
+Then we create an express server and a websocket server.
+
+In the `setup` method we attach a bunch of callback functions to different
+events that can happen on our websocket connections and on the "invoiceStream",
+the gRPC callback stream from `lnd`.
+
+We also setup a `/hearbeat` path in case we'd like to ping the server with a
+an old school REST request just to see if it's up.
+
+The websocket and invoiceStream callbacks are somewhat self-explanatory so we
+won't dive into detail.
+
 <a name="CommandLine" />
 
-### 1.5 Command Line
+### 1.6 Command Line
 
 There is no command line for `lnd-gateway`. Our program inside the container
 is just one file - `server.js`. It's not complicated enough to justify a CLI
