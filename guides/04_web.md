@@ -38,9 +38,46 @@ understanding for an easier time diving deeper on your own.
 
 ### 1.1 Dockerfile
 
+Take a look at `services/web/Dockerfile`.
+
+This Dockerfile sets up a node environment, copies the app files, and then
+installs dependencies.
+
+Note that compared to `lnd-gateway`, there is an additional step: `yarn build`.
+This is the step where we build our React files into plain javascript and html
+and then stick them into the `build` directory.
+
+Then the Dockerfile exposes a port on the container.
+
 <a name="DockerCompose" />
 
 ### 1.2 docker-compose
+
+Let's take a look at the root-level `docker-compose.yaml`, where we'll find an
+entry for `web` that looks like this:
+
+```yaml
+web:
+  image: web
+  container_name: web
+  build: ./services/web/
+  env_file: ./services/web/.env.docker
+  ports:
+    # host:container
+    - "4000:80"
+  command: ["yarn", "start:prod"]
+```
+
+
+
+
+
+
+
+
+
+
+
 
 <a name="Environment" />
 

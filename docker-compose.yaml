@@ -46,13 +46,11 @@ services:
     image: web
     container_name: web
     build: ./services/web/
-    env_file: ./services/web/.env.local
+    env_file: ./services/web/.env.docker
     ports:
       # host:container
       - "4000:80"
     command: ["yarn", "start:prod"]
-
-  # watchtower service?
 
   rtl:
     image: rtl
@@ -66,6 +64,12 @@ services:
     ports:
       - "3000:3000"
     command: ["node", "rtl"]
+
+  # Other services that could be added here:
+  # - A watchower service
+  # - An lndmon service (https://github.com/lightninglabs/lndmon)
+  # - A lightning loop service (loopd) (https://github.com/lightninglabs/loop)
+  # - Lightning terminal (https://lightning.engineering/posts/2020-08-04-lightning-terminal/)
 
 volumes:
   # This volume allows bitcoin blockchain data to persist through container
