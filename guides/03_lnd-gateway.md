@@ -51,7 +51,7 @@ also exposes a port on the container.
 
 <a name="DockerCompose" />
 
-### 1.1 docker-compose
+### 1.2 docker-compose
 
 Let's take a look at the root-level `docker-compose.yaml`, where we'll find an
 entry for `lnd-gateway` that looks like this:
@@ -114,7 +114,7 @@ we see `["yarn", "start:prod"]`. We'll break down what that means in the
 
 <a name="Environment" />
 
-### 1.1 Environment
+### 1.3 Environment
 
 Like in `btcd` and `lnd`, there is a sample env file at
 `services/lnd-gateway/.env.sample` we can take a look at to see what variables
@@ -158,19 +158,19 @@ volume that `lnd` created and stuck its credentials in, so we can set env vars
 that just specify the path to those credentials as a local path inside the 
 container.
 
-#### 1.1.1 .env.sample
+#### 1.3.1 .env.sample
 
 `.env.sample` is a resource listing all possible variables that could be
 specified in your environment.
 
-#### 1.1.2 .env.local
+#### 1.3.2 .env.local
 
 LND_HOST=0.0.0.0:10009
 PORT=4040
 LND_BASE64_CERT=
 LND_BASE64_MACAROON=
 
-#### 1.1.3 .env.docker
+#### 1.3.3 .env.docker
 
 LND_HOST=lnd:10009
 PORT=80
@@ -179,7 +179,7 @@ LND_CERT_PATH=/shared/tls.cert
 
 <a name="StartupScript" />
 
-### 1.1 Startup Script
+### 1.4 Startup Script
 
 In our `docker-compose.yaml` we saw that our startup command is this:
 
@@ -222,7 +222,7 @@ modern javascript features which aren't valid by default, then runs it.
 
 <a name="CommandLine" />
 
-### 1.1 Command Line
+### 1.5 Command Line
 
 There is no command line for `lnd-gateway`. Our program inside the container
 is just one file - `server.js`. It's not complicated enough to justify a CLI
