@@ -1,0 +1,1 @@
+# Generating base64 credentials for lnd

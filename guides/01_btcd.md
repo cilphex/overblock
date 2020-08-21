@@ -69,7 +69,7 @@ btcd:
   image: btcd
   container_name: btcd
   build: ./services/btcd/
-  env_file: ./services/btcd/.env.local
+  env_file: ./services/btcd/.env.docker
   volumes:
     - btcd_data:/data
     - shared_rpc_data:/rpc
@@ -97,11 +97,17 @@ This means: When I run `docker-compose up btcd`, start a container with the
 name `btcd` from this image.
 
 ```yaml
-env_file: ./services/btcd/.env.local
+env_file: ./services/btcd/.env.docker
 ```
 
 This means: When I run `docker-compose up btcd`, set the environment variables
 inside the container to the ones listed in this file.
+
+> ❓Why is it called `.env.docker`? Because it is a helpful pattern with `.env`
+files to put the type of environment they're being used for as the suffix. For
+`btcd` and `lnd` we only really have one environment: docker. But when we get
+to other services later, we'll want to differentiate. And it's good to preserve
+the pattern in all of the services for consistency.
 
 ```yaml
 volumes:
@@ -128,7 +134,7 @@ after starting because it won't have anything to do.
 Remember this line from `docker-compose.yaml`?
 
 ```yaml
-env_file: ./services/btcd/.env.local
+env_file: ./services/btcd/.env.docker
 ```
 
 It specifies a location for the environment variables to be injected into the
@@ -136,8 +142,7 @@ It specifies a location for the environment variables to be injected into the
 you'll need to create it.
 
 There is a sample env file at `services/btcd/.env.sample` to show you what
-variables are necessary and what types of values are acceptable. If you copy
-the "testnet" section to your own `.env.local`, that will work.
+variables are necessary and what types of values are acceptable.
 
 What env vars are we using in `btcd`?
 
@@ -213,7 +218,7 @@ from the main `btcd` project.)
 
 **--rpcuser and --rpcpass**
 
-These are set from our env vars, which come from the `.env.local` we specified
+These are set from our env vars, which come from the `.env.docker` we specified
 in our `docker-compose.yaml` entry for `btcd`.
 
 **--datadir and --logdir**

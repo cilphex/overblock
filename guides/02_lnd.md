@@ -58,7 +58,7 @@ lnd:
   image: lnd
   container_name: lnd
   build: ./services/lnd/
-  env_file: ./services/lnd/.env.local
+  env_file: ./services/lnd/.env.docker
   volumes:
     # Notes on what each of these are for are in the `volumes` section below
     - shared_rpc_data:/rpc
@@ -100,9 +100,8 @@ computer). Same for port `10009`.
 
 ### 1.3 Environment
 
-Let's look at `services/lnd/.env.sample`. This will be used by docker-compose
-to put the env vars that we define here into the container. Remember that
-you'll need to copy these values into a `.env.local` file before running.
+There is a sample env file at `services/lnd/.env.sample` to show you what
+variables are necessary and what types of values are acceptable.
 
 What env vars are we using?
 

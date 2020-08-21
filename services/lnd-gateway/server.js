@@ -3,25 +3,53 @@ import LndGrpc from 'lnd-grpc';
 import express from 'express';
 import WebSocket from 'ws';
 
-if (process.env.NODE_ENV === 'development') {
+const development = process.env.NODE_ENV === 'development';
+const production = process.env.NODE_ENV === 'production';
+
+// In production we don't load the env file through javascript. env vars are
+// loaded through docker-compose or our cloud environment. Only in development
+// do we load directly from an env file in the project code.
+if (development) {
   dotenv.config({ path: '.env.local' });
 }
 
+// Should be defined IFF in a production environment
 const certPath       = process.env.LND_CERT_PATH;
 const macaroonPath   = process.env.LND_MACAROON_PATH;
+
+// Should be defined IFF in a development environment
 const base64Cert     = process.env.LND_BASE64_CERT;
 const base64Macaroon = process.env.LND_BASE64_MACAROON;
+
+// Should be defined in any environment
 const host           = process.env.LND_HOST;
 const port           = process.env.PORT;
 
+if ((certPath || macaroonPath) && (base64Cert || base64Macaroon)) {
+  console.log('ERROR: production and development variables should not be mixed');
+  process.exit(1);
+}
+
 const cert = (() => {
-  if (certPath) return certPath;
-  return Buffer.from(base64Cert, 'base64').toString();
+  if (development) {
+    return Buffer.from(base64Cert, 'base64').toString();
+  }
+  if (production) {
+    return certPath;
+  }
+  console.log('ERROR: cert undefined');
+  process.exit(1);
 })();
 
 const macaroon = (() => {
-  if (macaroonPath) return macaroonPath;
-  return Buffer.from(base64Macaroon, 'base64').toString('hex');
+  if (development) {
+    return Buffer.from(base64Macaroon, 'base64').toString('hex');
+  }
+  if (production) {
+    return macaroonPath;
+  }
+  console.log('ERROR: macaroon undefined');
+  process.exit(1);
 })();
 
 const grpc = new LndGrpc({ cert, macaroon, host });
