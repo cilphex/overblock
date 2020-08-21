@@ -4,7 +4,7 @@ services:
     image: btcd
     container_name: btcd
     build: ./services/btcd/
-    env_file: ./services/btcd/.env.local
+    env_file: ./services/btcd/.env.docker
     volumes:
       - btcd_data:/data
       - shared_rpc_data:/rpc
@@ -14,7 +14,7 @@ services:
     image: lnd
     container_name: lnd
     build: ./services/lnd/
-    env_file: ./services/lnd/.env.local
+    env_file: ./services/lnd/.env.docker
     volumes:
       # Notes on what each of these are for are in the `volumes` section below
       - shared_rpc_data:/rpc

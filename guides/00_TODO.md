@@ -1,1 +1,0 @@
-- .env.local in `btcd` and `lnd` should be renamed to .env.docker

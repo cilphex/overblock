@@ -58,7 +58,7 @@ lnd:
   image: lnd
   container_name: lnd
   build: ./services/lnd/
-  env_file: ./services/lnd/.env.local
+  env_file: ./services/lnd/.env.docker
   volumes:
     # Notes on what each of these are for are in the `volumes` section below
     - shared_rpc_data:/rpc
@@ -101,8 +101,7 @@ computer). Same for port `10009`.
 ### 1.3 Environment
 
 There is a sample env file at `services/lnd/.env.sample` to show you what
-variables are necessary and what types of values are acceptable. If you copy
-the "testnet" section to your own `.env.local`, that will work.
+variables are necessary and what types of values are acceptable.
 
 What env vars are we using?
 
