@@ -103,7 +103,7 @@ env_file: ./services/btcd/.env.docker
 This means: When I run `docker-compose up btcd`, set the environment variables
 inside the container to the ones listed in this file.
 
-> ❓Why is it called `.env.docker`? Because it is a helpful pattern with `.env`
+> 💡 Why is it called `.env.docker`? Because it is a helpful pattern with `.env`
 files to put the type of environment they're being used for as the suffix. For
 `btcd` and `lnd` we only really have one environment: docker. But when we get
 to other services later, we'll want to differentiate. And it's good to preserve
