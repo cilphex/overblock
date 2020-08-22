@@ -140,17 +140,56 @@ skipping ones with "-test" in the name. It can probably compile your cat into a
 toaster and ship it to Mars.
 
 Each of these things can be done with modules and plugins specific to the task.
-So if somebody can make a module or plugin to do, I guess basically anything in
-javascript, it can be put into a webpack pipeline and applied to your files.
+So if somebody can make a module or plugin to do... I guess basically anything
+in javascript, it can be put into a webpack pipeline and applied to your files.
 
 In our case, we just want to use it to transform React files into regular html
 and javascript, and put the result into the `/build` directory.
 
+In the `webpack.common.js` we set up the configuration for doing that. This
+file itself is used in `webpack.dev.js` and `webpack.prod.js`. These files add
+some environment-specific build steps.
 
+Using webpack to build our React app into flat js and html files happens in 3
+places:
 
-TODO: COMPLETE ME
+1. In development, running the webpack dev server with `yarn start:dev` builds
+   our app and serves it up immediately. In this case it does _not_ put the 
+   built files into `/build`, and I guess stores them in a temporary location
+   decided by webpack.
+2. In development, we provide a script for building and then serving with our
+   `server.js` instead of the webpack dev server. That's `yarn start:flat`.
+   `yarn start:flat` basically just calls the build step and then calls
+   `yarn start:prod`, which calls server.js. `yarn start:prod` is the same
+   command we use in our container to serve files in production.
+3. You could also use any other server software to serve up the built flat app
+   files. For example, you could install the `http-server` npm module locally.
+   Then you could run `yarn build` to build the app, then navigate into the
+   `build` directory and run `http-server .`. Then you'll be able to view the
+   app at localhost:8080, as served by http-server instead of server.js.
+4. In production, the building of the web app happens in the Dockerfile, where
+   you can see the line `yarn start:build`.
+   
+> 🤔 What's the difference between using the webpack dev server in development
+rather than server.js?
+>
+> The webpack dev server can be faster for testing, because when the webpack
+dev server is running, it will detect changes to the code and apply them in 
+realtime. You might have to refresh to see the changes, but that's still better
+than having to re-build the app and restart the server to see changes
+reflected.
+>
+> The webpack dev server also theoretically supports in-place hot reloading,
+though I haven't figured out how to make it work.
 
-
+> 🤔 If you can use a prebuilt server like http-server to serve the app, why not
+just use that rather than a custom server.js?
+>
+> The actual reason is that at the time this code was written, [http-server could
+not work in Google Cloud Run](https://github.com/http-party/http-server/issues/615).
+Otherwise, I would have gone that way to reduce custom code. It is a tradeoff
+though. In exchange, we know exactly how our server code works and that it's as
+minimal as possible.
 
 <a name="CommandLine" />
 
