@@ -4,5 +4,5 @@ steps:
 
 # Push these built images to Container Registry
 images: [
-  'gcr.io/overblock/btcd'
+  'gcr.io/overblock-1/btcd'
 ]
