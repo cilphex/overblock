@@ -5,13 +5,15 @@
 Overblock is a development example website for receiving bitcoin lightning
 payments, inspired by Acinq's [starblocks](https://starblocks.acinq.co/).
 
-See the [guides](guides/) for a walkthrough. They're currently incomplete.
+See the [guides](guides/) for a walkthrough. Guides for production deployment
+coming later.
 
 ### Microservices
 
-We are not particularly opinionated about microservices, but since some of the dependencies are executables
-(such as `btcd` and `lnd`), it's nice to separate the concerns and just wrap them in containers. It would also
-be easier to scale.
+This project is written as a collection of microservices. Since some of the
+dependencies are executables (such as `btcd` and `lnd`), it's nice to separate
+the concerns and just wrap them in containers. It would also be easier to
+scale.
 
 The microservices are listed in the `./docker-compose.yaml` file.
 
