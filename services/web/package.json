@@ -13,7 +13,6 @@
     "start:prod": "babel-node server.js"
   },
   "devDependencies": {
-    "node-fetch": "^2.6.0",
     "ws": "^7.2.3"
   },
   "dependencies": {
@@ -34,7 +33,6 @@
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
-    "lightning": "^2.0.30",
     "mobx": "5.15.2",
     "mobx-react": "6.1.5",
     "node-sass": "^4.14.1",
