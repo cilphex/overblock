@@ -265,4 +265,7 @@ web | listening on port 80
 web | If this process is running in a container, it may be mapped to a different host port.
 ```
 
-Time to wrap up! [Next page](05_wrapping-up.md).
+At this point the project should be up and running. Congrats! View it in your
+browser and click around a bit.
+
+The next step is [making a payment to the app](05_making-a-payment.md).
