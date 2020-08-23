@@ -202,3 +202,65 @@ just interact with it through the browser.
 <a name="RunningInDevelopment" />
 
 ## 2. Running in Development
+
+You can run the app two types of ways: as a local process, or with Docker.
+
+### 2.1 Running as a local process
+
+There are multiple ways to run the app as a local process.
+
+#### 2.1.1 ...with webpack dev server
+
+This command will start the webpack dev server and automatically open a browser
+tab:
+
+```shell script
+yarn start:dev
+```
+
+#### 2.1.2 ...with our little server code (server.js)
+
+```shell script
+yarn start:flat
+```
+
+You can find what port this will start the server on by looking at the script
+in `package.json`.
+
+#### 2.1.3 ...with any other server
+
+With [http-server](https://github.com/http-party/http-server):
+
+```shell script
+cd services/web/build/
+http-server .
+```
+
+With python:
+
+```shell script
+cd services/web/build/
+python -m SimpleHTTPServer
+```
+
+### 2.2 Running with docker-compose
+
+To build:
+
+```shell script
+docker-compose build web
+```
+
+To run:
+
+```shell script
+docker-compose up web
+```
+
+The container should start and you should see a couple lines like this, printed
+from the container:
+
+```
+web | listening on port 80
+web | If this process is running in a container, it may be mapped to a different host port.
+```
