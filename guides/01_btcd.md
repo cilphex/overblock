@@ -137,14 +137,8 @@ Remember this line from `docker-compose.yaml`?
 env_file: ./services/btcd/.env.docker
 ```
 
-It specifies a location for the environment variables to be injected into the
-`btcd` container. Since it's a local file, it doesn't come with the code and
-you'll need to create it.
-
-There is a sample env file at `services/btcd/.env.sample` to show you what
-variables are necessary and what types of values are acceptable.
-
-What env vars are we using in `btcd`?
+It specifies an env file containing the variables that will be injected into
+the `btcd` container. What env vars are we using in `btcd`?
 
 ```dotenv
 RPCUSER=devuser
@@ -162,6 +156,9 @@ not mainnet.
 
 `DEBUG_LEVEL` controls what level of detail you see from the `btcd` executable
 in the `btcd` container.
+
+> 💡 There is a sample env file at `services/btcd/.env.sample` to show you some
+other possible values for the env vars.
 
 <a name="StartupScript" />
 
