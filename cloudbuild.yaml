@@ -1,6 +1,6 @@
 steps:
 - name: 'docker'
-  args: ['build', '-t', 'gcr.io/overblock/btcd', './services/btc/']
+  args: ['build', '-t', 'gcr.io/overblock-1/btcd', './services/btcd/']
 
 # Push these built images to Container Registry
 images: [
