@@ -29,3 +29,17 @@ The microservices are listed in the `./docker-compose.yaml` file.
 | Microservice | Purpose |
 | :--- | :--- |
 | `rtl` | [Ride the Lightning](https://github.com/Ride-The-Lightning/RTL), a web interface for managing the lightning node. |
+
+### Quickstart
+
+Build and run all services:
+
+```
+docker-compose up
+```
+
+Building will take some time, and it will take `btcd` up to a day or two to
+sync the testnet blockchain. Before then, behavior of the web app is undefined.
+
+The [guides](guides/) go into depth about what each service does and why,
+configuration, and local development.
