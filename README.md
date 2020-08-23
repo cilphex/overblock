@@ -10,7 +10,7 @@ coming later.
 
 ### Microservices
 
-This project is written as a collection of microservices. Since some of the
+Overblock is written as a collection of microservices. Since some of the
 dependencies are executables (such as `btcd` and `lnd`), it's nice to separate
 the concerns and just wrap them in containers. It would also be easier to
 scale.
