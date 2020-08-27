@@ -44,5 +44,6 @@ COPY "zombie-channels.sh" .
 RUN chmod +x start-lnd.sh
 RUN chmod +x zombie-channels.sh
 
-# Create the dir that our creds will be placed in
+# Create the dir that our creds will be placed in. We specify this path in
+# start-lnd.sh, in the --tlscertpath flag
 RUN mkdir /shared
