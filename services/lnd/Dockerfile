@@ -43,3 +43,6 @@ COPY "zombie-channels.sh" .
 
 RUN chmod +x start-lnd.sh
 RUN chmod +x zombie-channels.sh
+
+# Create the dir that our creds will be placed in
+RUN mkdir /shared
