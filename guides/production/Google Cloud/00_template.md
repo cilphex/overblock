@@ -108,6 +108,6 @@ bash-5.0# echo "-----BEGIN CERTIFICATE-----
 - in your lnd container, navigate to `/`
 
 
-remove /lnd
-create /shared
-./start-lnd.sh
+
+put ./start-lnd.sh as the startup command and
+restart after lnd:latest image is built
