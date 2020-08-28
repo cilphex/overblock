@@ -26,7 +26,7 @@ services:
       # host:container
       - "9735:9735"    # p2p
       - "10009:10009"  # rpc
-    command: ["./start-lnd.sh"]
+    command: ["./start-lnd.dev.sh"]
 
   lnd-gateway:
     image: lnd-gateway

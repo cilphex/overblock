@@ -30,12 +30,6 @@ assert "$DEBUG_LEVEL" "DEBUG_LEVEL must be specified"
 
 PARAMS=""
 
-# For development purposes you may specify for the node to start up without a
-# seed phrase. This option should never be used in production.
-if [ "$NOSEEDBACKUP" = "true" ]; then
-  PARAMS="--noseedbackup"
-fi
-
 # --lnddir is an option, but it will override
 # --adminmacaroonpath and --tlscertpath.
 #
@@ -44,16 +38,12 @@ fi
 PARAMS=$(echo "$PARAMS" \
   "--alias=$ALIAS" \
   --bitcoin.active \
-  --adminmacaroonpath=/shared/admin.macaroon \
-  --tlscertpath=/shared/tls.cert \
-  --tlskeypath=/lnd/tls.key \
+  --lnddir=/lnd \
   --tlsextraip=0.0.0.0 \
   --tlsextradomain=lnd \
-  --datadir=/lnd/data \
-  --logdir=/lnd/logs \
   "--bitcoin.$NETWORK" \
   "--bitcoin.node=$BACKEND" \
-  "--$BACKEND.rpccert=/rpc/rpc.cert" \
+  "--$BACKEND.rpccert=/lnd/rpc.cert" \
   "--$BACKEND.rpchost=$RPCHOST" \
   "--$BACKEND.rpcuser=$RPCUSER" \
   "--$BACKEND.rpcpass=$RPCPASS" \
@@ -61,5 +51,5 @@ PARAMS=$(echo "$PARAMS" \
   "--debuglevel=$DEBUG_LEVEL"
 )
 
-echo "Starting lnd"
+echo "Starting lnd (prod)"
 exec lnd $PARAMS
