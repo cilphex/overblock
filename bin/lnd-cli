@@ -4,7 +4,7 @@
 # can be run from anywhere
 FILE_PATH="$(realpath $0)"
 DIR_PATH="$(dirname $FILE_PATH)"
-LND_ENV_PATH="$DIR_PATH/../services/lnd/.env.local"
+LND_ENV_PATH="$DIR_PATH/../services/lnd/.env.docker"
 
 source "$LND_ENV_PATH"
 

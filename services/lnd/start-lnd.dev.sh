@@ -28,33 +28,31 @@ assert "$RPCUSER" "RPCUSER must be specified"
 assert "$RPCPASS" "RPCPASS must be specified"
 assert "$DEBUG_LEVEL" "DEBUG_LEVEL must be specified"
 
-PARAMS=""
-
 # --lnddir is an option, but it will override
 # --adminmacaroonpath and --tlscertpath.
 #
 # Optional:
-# --autopilot.active \
-PARAMS=$(echo "$PARAMS" \
-  --noseedbackup \
-  "--alias=$ALIAS" \
-  --bitcoin.active \
-  --adminmacaroonpath=/shared/admin.macaroon \
-  --tlscertpath=/shared/tls.cert \
-  --tlskeypath=/lnd/tls.key \
-  --tlsextraip=0.0.0.0 \
-  --tlsextradomain=lnd \
-  --datadir=/lnd/data \
-  --logdir=/lnd/logs \
-  "--bitcoin.$NETWORK" \
-  "--bitcoin.node=$BACKEND" \
-  "--$BACKEND.rpccert=/rpc/rpc.cert" \
-  "--$BACKEND.rpchost=$RPCHOST" \
-  "--$BACKEND.rpcuser=$RPCUSER" \
-  "--$BACKEND.rpcpass=$RPCPASS" \
-  "--rpclisten=0.0.0.0:10009" \
+# --autopilot.active
+# --noseedbackup
+LND_PARAMS=(
+  "--alias=$ALIAS"
+  "--bitcoin.active"
+  "--adminmacaroonpath=/shared/admin.macaroon"
+  "--tlscertpath=/shared/tls.cert"
+  "--tlskeypath=/lnd/tls.key"
+  "--tlsextraip=0.0.0.0"
+  "--tlsextradomain=lnd"
+  "--datadir=/lnd/data"
+  "--logdir=/lnd/logs"
+  "--bitcoin.$NETWORK"
+  "--bitcoin.node=$BACKEND"
+  "--$BACKEND.rpccert=/rpc/rpc.cert"
+  "--$BACKEND.rpchost=$RPCHOST"
+  "--$BACKEND.rpcuser=$RPCUSER"
+  "--$BACKEND.rpcpass=$RPCPASS"
+  "--rpclisten=0.0.0.0:10009"
   "--debuglevel=$DEBUG_LEVEL"
 )
 
 echo "Starting lnd (dev)"
-exec lnd $PARAMS
+exec lnd ${LND_PARAMS[*]}
