@@ -47,4 +47,4 @@ PARAMS=(
 )
 
 echo "Starting lnd (prod)"
-exec lnd ${PARAMS[*]}
+lnd ${PARAMS[*]}
