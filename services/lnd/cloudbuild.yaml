@@ -1,0 +1,6 @@
+steps:
+- name: 'docker'
+  args: ['build', '-t', 'gcr.io/overblock-1/lnd', './services/lnd/']
+
+# Push these built images to Container Registry
+images: ['gcr.io/overblock-1/lnd']
