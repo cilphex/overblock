@@ -55,4 +55,4 @@ LND_PARAMS=(
 )
 
 echo "Starting lnd (dev)"
-exec lnd ${LND_PARAMS[*]}
+lnd ${LND_PARAMS[*]}
