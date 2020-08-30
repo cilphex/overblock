@@ -46,5 +46,5 @@ PARAMS=(
   "--debuglevel=$DEBUG_LEVEL"
 )
 
-echo "Starting lnd (prod 8/30 1:34am)"
-lnd ${PARAMS[*]}
+echo "Starting lnd (prod)"
+exec lnd ${PARAMS[*]}
