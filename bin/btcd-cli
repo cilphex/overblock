@@ -4,7 +4,7 @@
 # can be run from anywhere
 FILE_PATH="$(realpath $0)"
 DIR_PATH="$(dirname $FILE_PATH)"
-BTCD_ENV_PATH="$DIR_PATH/../services/btcd/.env.local"
+BTCD_ENV_PATH="$DIR_PATH/../services/btcd/.env.docker"
 
 source "$BTCD_ENV_PATH"
 
