@@ -40,7 +40,8 @@ COPY --from=builder /go/bin/findcheckpoint /bin/
 COPY --from=builder /go/bin/gencerts /bin/
 
 # COPY "start-btcctl.sh" .
-COPY "start-btcd.sh" .
+COPY "start-btcd.dev.sh" .
+COPY "start-btcd.prod.sh" .
 
 RUN apk add --no-cache \
     bash \
@@ -48,7 +49,8 @@ RUN apk add --no-cache \
 &&  mkdir "/rpc" "/root/.btcd" "/root/.btcctl" \
 &&  touch "/root/.btcd/btcd.conf" \
 # &&  chmod +x start-btcctl.sh \
-&&  chmod +x start-btcd.sh \
+&&  chmod +x start-btcd.dev.sh \
+&&  chmod +x start-btcd.prod.sh \
 # Manually generate certificate and add all domains, it is needed to connect
 # "btcctl" and "lnd" to "btcd" over docker links.
 && "/bin/gencerts" --host="*" --directory="/rpc" --force
