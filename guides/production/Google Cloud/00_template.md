@@ -106,8 +106,16 @@ bash-5.0# echo "-----BEGIN CERTIFICATE-----
 - now hit enter, and the pasted contents should be written to rpc.cert
 - do the same thing with rpc.key
 - in your lnd container, navigate to `/`
+- put ./start-lnd.prod.sh as the startup command and restart after lnd:latest image is built
 
+---
 
-
-put ./start-lnd.sh as the startup command and
-restart after lnd:latest image is built
+- time for lnd-gateway
+- create new VM instance like for btcd and lnd
+- we do not need to attach a persistent disk this time
+- we do need to store the tls.cert and admin.macaroon as copied from the lnd process
+- we'll just put them on the persistent boot disk of the VM
+- if we start without the creds, the server will crash and continually restart
+- so for our startup command, put `tail -f /dev/null` for now
+- copy /lnd/tls.cert from lnd to /app/creds/tls.cert in lnd-gateway using the echo method
+- copy 
