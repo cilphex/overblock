@@ -118,4 +118,16 @@ bash-5.0# echo "-----BEGIN CERTIFICATE-----
 - if we start without the creds, the server will crash and continually restart
 - so for our startup command, put `tail -f /dev/null` for now
 - copy /lnd/tls.cert from lnd to /app/creds/tls.cert in lnd-gateway using the echo method
-- copy 
+- admin.macaroon is, i don't think, a text file format, so
+- navigate to the file, then do `base64 admin.macaroon | tr -d '\n'`
+- copy the output to the lnd-gateway dir using the echo method to a file named admin.macaroon.base64
+- then decode it and write to an admin.macaroon file by doing `base64 -d admin.macaroon.base64 > admin.macaroon`
+- now remove the admin.macaroon.base64
+- go back to VM instance details and replace startup command with `yarn` `start:prod`
+
+
+
+
+
+
+
