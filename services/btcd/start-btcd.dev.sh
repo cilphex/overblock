@@ -26,9 +26,10 @@ assert "$RPCPASS" "RPCPASS must be specified"
 assert "$NETWORK" "NETWORK must be specified"
 assert "$DEBUG_LEVEL" "DEBUG_LEVEL must be specified"
 
-# Generate rpc credential files if they do not exist
-# (by not passing --force). Do this before we start btcd
-# so that we can specify our own host arg.
+# Generate rpc credential files if they do not exist. Do
+# this before we start btcd so that we can specify our own
+# host arg. If we don't, btcd will create them automatically
+# without the host options we want.
 if [[ ! -f "/rpc/rpc.cert" || ! -f "/rpc/rpc.key" ]]
 then
   echo "Generating new cert files"
