@@ -8,7 +8,10 @@ LND_ENV_PATH="$DIR_PATH/../services/lnd/.env.docker"
 
 source "$LND_ENV_PATH"
 
-docker-compose exec lnd lncli \
-  --macaroonpath /shared/admin.macaroon \
-  --tlscertpath /shared/tls.cert \
+LNCLI_PARAMS=(
+  "--macaroonpath=/shared/admin.macaroon"
+  "--tlscertpath=/shared/tls.cert"
   "$@"
+)
+
+docker-compose exec lnd lncli ${LNCLI_PARAMS[*]}

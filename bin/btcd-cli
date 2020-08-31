@@ -8,9 +8,12 @@ BTCD_ENV_PATH="$DIR_PATH/../services/btcd/.env.docker"
 
 source "$BTCD_ENV_PATH"
 
-docker-compose exec btcd btcctl \
-  $(echo "--$NETWORK") \
-  --rpccert=/rpc/rpc.cert \
-  --rpcuser=$RPCUSER \
-  --rpcpass=$RPCPASS \
+BTCCTL_PARAMS=(
+  "--$NETWORK"
+  "--rpccert=/rpc/rpc.cert"
+  "--rpcuser=$RPCUSER"
+  "--rpcpass=$RPCPASS"
   "$@"
+)
+
+docker-compose exec btcd btcctl ${BTCCTL_PARAMS[*]}
