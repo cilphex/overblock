@@ -26,27 +26,18 @@ assert "$RPCPASS" "RPCPASS must be specified"
 assert "$NETWORK" "NETWORK must be specified"
 assert "$DEBUG_LEVEL" "DEBUG_LEVEL must be specified"
 
-PARAMS=""
-
-if [ "$NETWORK" != "mainnet" ]; then
-   PARAMS="--$NETWORK"
-fi
-
-if [[ -n "$MINING_ADDRESS" ]]; then
-  PARAMS="$PARAMS --miningaddr=$MINING_ADDRESS"
-fi
-
-PARAMS=$(echo "$PARAMS" \
-  "--rpcuser=$RPCUSER" \
-  "--rpcpass=$RPCPASS" \
-  "--datadir=/data" \
-  "--logdir=/data" \
-  "--rpccert=/rpc/rpc.cert" \
-  "--rpckey=/rpc/rpc.key" \
-  "--rpclisten=0.0.0.0" \
-  "--txindex" \
+BTCD_PARAMS=(
+  "--$NETWORK"
+  "--rpcuser=$RPCUSER"
+  "--rpcpass=$RPCPASS"
+  "--datadir=/data"
+  "--logdir=/data"
+  "--rpccert=/rpc/rpc.cert"
+  "--rpckey=/rpc/rpc.key"
+  "--rpclisten=0.0.0.0"
+  "--txindex"
   "--debuglevel=$DEBUG_LEVEL"
 )
 
 echo "Starting btcd (dev)"
-exec btcd $PARAMS
+exec btcd ${BTCD_PARAMS[*]}
