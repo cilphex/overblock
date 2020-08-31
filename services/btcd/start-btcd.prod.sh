@@ -41,6 +41,8 @@ PARAMS=$(echo "$PARAMS" \
   "--rpcpass=$RPCPASS" \
   "--datadir=/data" \
   "--logdir=/data" \
+  "--rpccert=/data/rpc.cert" \
+  "--rpckey=/data/rpc.key" \
   "--rpclisten=0.0.0.0" \
   "--txindex" \
   "--debuglevel=$DEBUG_LEVEL"
