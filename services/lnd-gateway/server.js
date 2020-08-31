@@ -6,6 +6,14 @@ import WebSocket from 'ws';
 const development = process.env.NODE_ENV === 'development';
 const production = process.env.NODE_ENV === 'production';
 
+if (!development && !production) {
+  console.log('ERROR: process.env.NODE_ENV is not defined');
+  process.exit(1);
+}
+else {
+  console.log('starting', development && '(dev)' || production && '(prod)' || `(${process.env.NODE_ENV})`)
+}
+
 // In production we don't load the env file through javascript. env vars are
 // loaded through docker-compose or our cloud environment. Only in development
 // do we load directly from an env file in the project code.
@@ -13,11 +21,12 @@ if (development) {
   dotenv.config({ path: '.env.local' });
 }
 
-// Should be defined IFF in a production environment
+// Is used only in local docker mode, where we can easily share cred files
+// with volumes
 const certPath       = process.env.LND_CERT_PATH;
 const macaroonPath   = process.env.LND_MACAROON_PATH;
 
-// Should be defined IFF in a development environment
+// Used in other environments, like local process and production containers
 const base64Cert     = process.env.LND_BASE64_CERT;
 const base64Macaroon = process.env.LND_BASE64_MACAROON;
 
