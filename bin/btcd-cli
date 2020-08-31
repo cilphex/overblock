@@ -6,6 +6,7 @@ FILE_PATH="$(realpath $0)"
 DIR_PATH="$(dirname $FILE_PATH)"
 BTCD_ENV_PATH="$DIR_PATH/../services/btcd/.env.docker"
 
+# Load env vars
 source "$BTCD_ENV_PATH"
 
 BTCCTL_PARAMS=(

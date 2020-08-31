@@ -54,15 +54,3 @@ RUN chmod +x start-btcd.prod.sh
 # btcd will sometimes complain if this file does not exist
 RUN mkdir ~/.btcd
 RUN touch ~/.btcd/btcd.conf
-
-# Manually generate certificate and add all domains, it is needed to connect
-# "btcctl" and "lnd" to "btcd" over docker links.
-#RUN "/bin/gencerts" --host="*" --directory="/rpc" --force
-
-# Create a volume to house pregenerated RPC credentials. This will be
-# shared with any lnd, btcctl containers so they can securely query btcd's RPC
-# server.
-# You should NOT do this before certificate generation!
-# Otherwise manually generated certificate will be overridden with shared
-# mounted volume! For more info read dockerfile "VOLUME" documentation.
-#VOLUME ["/rpc"]
