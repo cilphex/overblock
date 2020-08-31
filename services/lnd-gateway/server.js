@@ -40,22 +40,22 @@ if ((certPath || macaroonPath) && (base64Cert || base64Macaroon)) {
 }
 
 const cert = (() => {
-  if (development) {
-    return Buffer.from(base64Cert, 'base64').toString();
-  }
-  if (production) {
+  if (certPath) {
     return certPath;
+  }
+  if (base64Cert) {
+    return Buffer.from(base64Cert, 'base64').toString();
   }
   console.log('ERROR: cert undefined');
   process.exit(1);
 })();
 
 const macaroon = (() => {
-  if (development) {
-    return Buffer.from(base64Macaroon, 'base64').toString('hex');
-  }
-  if (production) {
+  if (macaroonPath) {
     return macaroonPath;
+  }
+  if (base64Macaroon) {
+    return Buffer.from(base64Macaroon, 'base64').toString('hex');
   }
   console.log('ERROR: macaroon undefined');
   process.exit(1);
