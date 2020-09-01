@@ -112,22 +112,23 @@ bash-5.0# echo "-----BEGIN CERTIFICATE-----
 
 - time for lnd-gateway
 - create new VM instance like for btcd and lnd
+- startup command: `yarn`, `start:prod`
+- env vars:
+- remember to include port at the end of host ip for lnd env var
+- enter `LND_BASE64_CERT` and `LND_BASE64_MACAROON` as env vars
+- find the tls.cert and admin.macaroon in lnd and base64 them with `base64 <filename> | tr -d '\n'`
+- be sure that when you copy and paste the values, all spaces and newlines are removed.
+  sometimes if you copy what looks like a single string from a terminal window, it may copy to
+  your clipboard with newlines.
 - we do not need to attach a persistent disk this time
-- we do need to store the tls.cert and admin.macaroon as copied from the lnd process
-- we'll just put them on the persistent boot disk of the VM
-- if we start without the creds, the server will crash and continually restart
-- so for our startup command, put `tail -f /dev/null` for now
-- copy /lnd/tls.cert from lnd to /app/creds/tls.cert in lnd-gateway using the echo method
-- admin.macaroon is, i don't think, a text file format, so
-- navigate to the file, then do `base64 admin.macaroon | tr -d '\n'`
-- copy the output to the lnd-gateway dir using the echo method to a file named admin.macaroon.base64
-- then decode it and write to an admin.macaroon file by doing `base64 -d admin.macaroon.base64 > admin.macaroon`
-- now remove the admin.macaroon.base64
-- go back to VM instance details and replace startup command with `yarn` `start:prod`
+- save and let it boot up
+- when it has the green light, click the IP address
+- will open in a new window, should load nothing
+- switch the url to be http instead of https, and add the /heartbeat path
+- should see it say 'beating!'
+- on to www for now, but we will come back for https
 
+---
 
-
-
-
-
+- let's do web
 
