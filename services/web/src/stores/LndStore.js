@@ -1,22 +1,24 @@
 import { observable } from 'mobx';
 import QRCode from 'qrcode';
 
-const socketHost = 'ws://localhost:4040';
-
 class LndStore {
+  lndGatewayHost = null;
   ws = null;
   expiry_interval = null;
 
+  @observable opened = false;  // connected once
+  @observable open = false;    // connected currently
   @observable waitingForInvoice = false;
   @observable invoice = null;
   @observable error = null;
 
-  constructor() {
+  init(lndGatewayHost) {
+    this.lndGatewayHost = `ws://${lndGatewayHost}`;
     this.setupSocket();
   }
 
   setupSocket() {
-    this.ws = new WebSocket(socketHost);
+    this.ws = new WebSocket(this.lndGatewayHost);
     this.ws.onopen = this.handleSocketOpen;
     this.ws.onmessage = this.handleSocketMessage;
     this.ws.onerror = this.handleSocketError;
@@ -24,7 +26,9 @@ class LndStore {
   }
 
   handleSocketOpen = () => {
-    console.log('open');
+    console.log('socket open');
+    this.opened = true;
+    this.open = true;
   };
 
   handleSocketMessage = (message) => {
@@ -39,12 +43,13 @@ class LndStore {
     }
   };
 
-  handleSocketError = () => {
-    console.log('error');
+  handleSocketError = (e) => {
+    console.log('socket error', e);
   };
 
   handleSocketClose = () => {
-    console.log('close');
+    console.log('socket close');
+    this.open = false;
   };
 
   // ==========================================================================

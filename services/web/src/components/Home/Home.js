@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { lndStore } from 'lib/globals';
+import StoreContext from 'lib/StoreContext';
 import styles from './Home.scss';
 import products from './products';
 
@@ -11,11 +11,12 @@ function numberWithCommas(x) {
 
 @observer
 class Home extends React.Component {
+  static contextType = StoreContext;
+
   constructor(props) {
     super(props);
 
     this.paymentRequestRef = React.createRef();
-
     this.state = {
       product: null,
       paymentRequestCopied: false,
@@ -47,7 +48,7 @@ class Home extends React.Component {
   };
 
   expiryTextView = () => {
-    const { invoice } = lndStore;
+    const { invoice } = this.context.lndStore;
 
     if (invoice.expiry === undefined) {
       return "...";
@@ -71,7 +72,7 @@ class Home extends React.Component {
   };
 
   invoicePendingView = () => {
-    const { invoice } = lndStore;
+    const { invoice } = this.context.lndStore;
 
     return (
       <div className={styles.invoice}>
@@ -99,7 +100,7 @@ class Home extends React.Component {
 
   buyButtonView = () => {
     const { product } = this.state;
-    const { waitingForInvoice } = lndStore;
+    const { waitingForInvoice } = this.context.lndStore;
 
     return (
       <div className={styles.buyButton}>
@@ -111,7 +112,7 @@ class Home extends React.Component {
   };
 
   checkoutStatusView = () => {
-    const { invoice } = lndStore;
+    const { invoice } = this.context.lndStore;
 
     if (invoice) {
       if (invoice.settled) {
@@ -124,7 +125,7 @@ class Home extends React.Component {
 
   checkoutView = () => {
     const { product } = this.state;
-    const { invoice } = lndStore;
+    const { invoice } = this.context.lndStore;
     const tiltClass = product.tilt ? styles.tilt : null;
     const cancelText = invoice && invoice.settled ? 'Close' : 'Cancel';
 
@@ -172,13 +173,13 @@ class Home extends React.Component {
 
   cancelCheckout = () => {
     this.setState({ product: null });
-    lndStore.clearInvoice();
+    this.context.lndStore.clearInvoice();
   };
 
   createInvoice = () => {
     const { product } = this.state;
 
-    lndStore.createInvoice(product.price, product.name);
+    this.context.lndStore.createInvoice(product.price, product.name);
   };
 
   productView = (product, i) => {

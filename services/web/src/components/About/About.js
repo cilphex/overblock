@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
-import { lndStore } from 'lib/globals';
 
 import styles from './About.scss';
 

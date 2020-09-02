@@ -11,6 +11,19 @@ assert(port, 'No port specified');
 const app = new Koa();
 const router = new Router();
 
+// Heartbeat path
+router.get('/heartbeat', async function(ctx) {
+  ctx.body = 'beating';
+});
+
+// Route serving up public env vars
+router.get('/globals', async function(ctx) {
+  ctx.body = {
+    PORT: process.env.PORT,
+    LND_GATEWAY_HOST: process.env.LND_GATEWAY_HOST,
+  };
+});
+
 // Serve files with extension dots ('.') from build.
 // Paths like /thing.js
 router.get(/\./, async function(ctx) {
