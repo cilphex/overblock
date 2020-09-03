@@ -24,6 +24,7 @@ services:
       - btcd
     ports:
       # host:container
+      - "8080:8080"    # rest
       - "9735:9735"    # p2p
       - "10009:10009"  # rpc
     command: ["./start-lnd.dev.sh"]
@@ -56,13 +57,13 @@ services:
     image: rtl
     container_name: rtl
     build: ./services/rtl/
-    env_file: ./services/rtl/.env.local
+    env_file: ./services/rtl/.env.docker
     volumes:
       - shared_lightning_creds:/shared:ro
     depends_on:
       - lnd
     ports:
-      - "3000:3000"
+      - "4000:80"
     command: ["node", "rtl"]
 
   # Other services that could be added here:

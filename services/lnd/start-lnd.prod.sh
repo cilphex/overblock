@@ -43,6 +43,7 @@ PARAMS=(
   "--$BACKEND.rpcuser=$RPCUSER"
   "--$BACKEND.rpcpass=$RPCPASS"
   "--rpclisten=0.0.0.0:10009"
+  "--restlisten=0.0.0.0:8080"
   "--debuglevel=$DEBUG_LEVEL"
 )
 
