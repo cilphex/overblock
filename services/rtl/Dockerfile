@@ -2,6 +2,7 @@ FROM node:14.7.0-alpine3.11
 
 # Necessary for git pull and bash is helpful for debut
 RUN apk add --no-cache --update \
+    coreutils \
     alpine-sdk \
     bash \
     git
