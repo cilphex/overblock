@@ -19,3 +19,8 @@ RUN git clone $RTL_REPO . \
 
 # Copy the config from our source to the working dir
 COPY ./RTL-Config.json .
+
+# Copy start file and make it executable
+COPY "start-rtl.sh" .
+
+RUN chmod +x start-rtl.sh
