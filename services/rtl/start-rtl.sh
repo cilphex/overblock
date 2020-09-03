@@ -40,9 +40,17 @@ then
 fi
 
 # If the admin.macaroon file doesn't exist
-if [[ ! -f "admin.macaroon" ]]; then
+if [[ -f "admin.macaroon" ]]; then
+  echo "admin.macaroon already exists."
+else
+  echo "admin.macaroon does not exist."
+
   # And if we have it in the env var as base64
-  if [[ ! -z "$ADMIN_MACAROON_BASE64" ]]; then
+  if [[ -z "$ADMIN_MACAROON_BASE64" ]]; then
+    echo "base64 admin macaroon is missing in env vars."
+  else
+    echo "base64 admin macaroon is present in env vars."
+
     # Then decode it and write it to the admin.macaroon file
     echo "$ADMIN_MACAROON_BASE64" | base64 -d > admin.macaroon
   fi
