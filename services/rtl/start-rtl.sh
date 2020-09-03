@@ -58,7 +58,8 @@ else
     fi
 
     # Then decode it and write it to the admin.macaroon file
-    echo "$ADMIN_MACAROON_BASE64" | base64 -d > "$MACAROON_FILE_PATH"
+    echo "$ADMIN_MACAROON_BASE64" > admin.macaroon.base64
+    echo base64 -d admin.macaroon.base64 > "$MACAROON_FILE_PATH"
     echo "created admin.macaroon at $MACAROON_FILE_PATH"
   fi
 fi
