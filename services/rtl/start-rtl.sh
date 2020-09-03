@@ -52,7 +52,7 @@ else
     echo "base64 admin macaroon is present in env vars."
 
     # Then decode it and write it to the admin.macaroon file
-    echo "$ADMIN_MACAROON_BASE64" | base64 -d > admin.macaroon
+    echo "$ADMIN_MACAROON_BASE64" | base64 -d > /app/admin.macaroon
   fi
 fi
 
