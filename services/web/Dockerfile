@@ -1,4 +1,4 @@
-FROM node:14.7.0-alpine3.11 as builder
+FROM node:14.7.0-alpine3.11
 
 # Necessary for building grpc package
 RUN apk add --no-cache --update \
@@ -18,5 +18,5 @@ RUN yarn install
 # Build the flat files that will be served
 RUN yarn build
 
-# Expose port that is specified in the env vars
+# Expose port that is specified in the env vars (necessary?)
 EXPOSE $PORT

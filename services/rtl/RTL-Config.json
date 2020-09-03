@@ -1,17 +1,13 @@
 {
+  "NOTE_TO_DEVELOPER": "Most important values are in the env vars. This is a minimal RTL-Config.json.",
   "multiPass": "password",
   "SSO": {
-    "rtlSSO": 0,
-    "rtlCookiePath": "",
-    "logoutRedirectLink": ""
+    "rtlSSO": 0
   },
   "nodes": [
     {
       "index": 1,
       "lnNode": "Node 1",
-      "Authentication": {
-        "macaroonPath": "/shared"
-      },
       "Settings": {
         "userPersona": "OPERATOR",
         "enableLogging": true

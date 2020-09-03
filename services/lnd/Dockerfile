@@ -10,16 +10,18 @@ FROM golang:1.13-alpine as builder
 ENV GODEBUG netdns=cgo
 
 # Install dependencies and install/build lnd.
-RUN apk add --no-cache --update alpine-sdk \
+RUN apk add --no-cache --update \
+    alpine-sdk \
     git \
     make
 
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 
 # Pin down lnd to a version that we trust to work
+ARG LND_REPO=https://github.com/lightningnetwork/lnd.git
 ARG LND_VERSION=v0.11.0-beta
 
-RUN git clone https://github.com/lightningnetwork/lnd.git . \
+RUN git clone $LND_REPO . \
     && git checkout $LND_VERSION \
     && make \
     && make install tags="autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc"
