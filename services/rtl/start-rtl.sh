@@ -33,11 +33,7 @@ assert() {
 
 assert "$PORT" "PORT must be specified"
 assert "$LN_SERVER_URL" "LN_SERVER_URL must be specified"
-
-if [[ -z "$MACAROON_PATH" || "$MACAROON_PATH" == "$BLANK_STRING" ]] && [[ -z "$ADMIN_MACAROON_BASE64" || "$ADMIN_MACAROON_BASE64" == "$BLANK_STRING" ]]
-then
-  error "MACAROON_PATH or ADMIN_MACAROON_BASE64 must be specified"
-fi
+assert "$MACAROON_PATH" "MACAROON_PATH must be specified"
 
 # If the admin.macaroon file doesn't exist
 if [[ -f "admin.macaroon" ]]; then
