@@ -36,6 +36,7 @@ assert "$LN_SERVER_URL" "LN_SERVER_URL must be specified"
 assert "$MACAROON_PATH" "MACAROON_PATH must be specified"
 
 MACAROON_FILE_PATH="$MACAROON_PATH/admin.macaroon"
+echo "okay..."
 
 # If the admin.macaroon file doesn't exist
 if [[ -f "$MACAROON_FILE_PATH" ]]; then
@@ -59,7 +60,7 @@ else
 
     # Then decode it and write it to the admin.macaroon file
     echo "$ADMIN_MACAROON_BASE64" > admin.macaroon.base64
-    echo base64 -d admin.macaroon.base64 > "$MACAROON_FILE_PATH"
+    echo $(base64 -d admin.macaroon.base64) > "$MACAROON_FILE_PATH"
     echo "created admin.macaroon at $MACAROON_FILE_PATH"
   fi
 fi
