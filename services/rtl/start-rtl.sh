@@ -44,7 +44,7 @@ if [[ ! -f "admin.macaroon" ]]; then
   # And if we have it in the env var as base64
   if [[ ! -z "$ADMIN_MACAROON_BASE64" ]]; then
     # Then decode it and write it to the admin.macaroon file
-    echo "$ADMIN_MACAROON_BASE64" | base64 --decode > admin.macaroon
+    echo "$ADMIN_MACAROON_BASE64" | base64 -d > admin.macaroon
   fi
 fi
 
