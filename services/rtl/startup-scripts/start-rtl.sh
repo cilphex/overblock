@@ -37,7 +37,7 @@ assert "$MACAROON_PATH" "MACAROON_PATH must be specified"
 
 # Create the macaroon file from the base64 version in the env
 # vars, if one does not already exist.
-./add-macaroon-file.sh
+/app/startup-scripts/add-macaroon-file.sh
 
 # Start rtl
 node rtl
