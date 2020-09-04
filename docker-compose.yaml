@@ -64,7 +64,7 @@ services:
       - lnd
     ports:
       - "4000:80"
-    command: ["./start-rtl.sh"]
+    command: ["./startup-scripts/start-rtl.sh"]
 
   # Other services that could be added here:
   # - A watchower service
