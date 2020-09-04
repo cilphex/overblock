@@ -35,6 +35,8 @@ assert "$PORT" "PORT must be specified"
 assert "$LN_SERVER_URL" "LN_SERVER_URL must be specified"
 assert "$MACAROON_PATH" "MACAROON_PATH must be specified"
 
+echo "okay there"
+
 # Create the macaroon file from the base64 version in the env
 # vars, if one does not already exist.
 /app/startup-scripts/add-macaroon-file.sh
