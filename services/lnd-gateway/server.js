@@ -193,38 +193,44 @@ class App {
     console.log('handleSocketOpen');
   };
 
-  handleSocketMessage = (ws, data) => {
+  handleSocketMessage = async (ws, data) => {
     console.log('handleSocketMessage', data);
 
     try {
       data = JSON.parse(data);
     }
-    catch(e) {
-      return ws.emit('error', e);
+    catch(err) {
+      // I forget, what does this do?
+      return ws.emit('error', err);
     }
 
-    switch(data.type) {
-      case 'create_invoice':
-        this.createInvoice(ws, data.sats, data.memo);
-        break;
-      default:
-        this.sendError(new Error(`Unknown type ${data.type}`));
+    try {
+      switch (data.type) {
+        case 'create_invoice':
+          await this.createInvoice(ws, data.sats, data.memo);
+          break;
+        default:
+          this.sendError(ws, new Error(`Unknown type ${data.type}`));
+      }
+    }
+    catch(err) {
+      return this.sendError(ws, err);
     }
   };
 
   handleSocketError = (ws, err) => {
     console.log('handleSocketError', err);
-    this.sendError(err);
+    this.sendError(ws, err);
   };
 
   handleSocketClose = (ws) => {
     console.log('handleSocketClose');
   };
 
-  sendError = (err) => {
+  sendError = (ws, err) => {
     const message = {
-      type: 'error',
-      message: e.message,
+      message_type: 'error',
+      message: err.message,
     };
     ws.send(JSON.stringify(message));
   }

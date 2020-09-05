@@ -6,8 +6,7 @@ class LndStore {
   ws = null;
   expiry_interval = null;
 
-  @observable opened = false;  // connected once
-  @observable open = false;    // connected currently
+  @observable open = false;
   @observable waitingForInvoice = false;
   @observable invoice = null;
   @observable error = null;
@@ -27,7 +26,6 @@ class LndStore {
 
   handleSocketOpen = () => {
     console.log('socket open');
-    this.opened = true;
     this.open = true;
   };
 
@@ -38,18 +36,33 @@ class LndStore {
       case 'invoice':
         this.handleInvoiceMessage(data);
         break;
+      case 'error':
+        this.handleErrorMessage(data);
       default:
         console.log(`got unknown messageType: ${data.message_type}`);
     }
   };
 
   handleSocketError = (e) => {
-    console.log('socket error', e);
+    console.log('socket error event', e);
+    this.error = 'Socket error';
   };
 
   handleSocketClose = () => {
     console.log('socket close');
     this.open = false;
+  };
+
+  // ==========================================================================
+  // Errors
+
+  handleErrorMessage = (data) => {
+    console.log('handleErrorMessage');
+    this.error = data.message;
+  };
+
+  clearError = () => {
+    this.error = null;
   };
 
   // ==========================================================================

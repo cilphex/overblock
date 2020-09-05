@@ -202,10 +202,26 @@ class Home extends React.Component {
     );
   };
 
+  errorView = () => {
+    const { error, clearError } = this.context.lndStore;
+
+    return (
+      <div className={styles.error}>
+        Error: {error}
+        {' '}
+        (<a onClick={clearError}>Clear</a>)
+      </div>
+    );
+  };
+
   render() {
+    const { error } = this.context.lndStore;
+    const { product } = this.state;
+
     return (
       <div className={styles.content}>
-        {this.state.product ? this.checkoutView() : null}
+        {error && this.errorView()}
+        {product && this.checkoutView()}
 
         <div className={styles.main}>
           {/* Header */}

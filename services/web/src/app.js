@@ -31,10 +31,6 @@ class App extends React.Component {
       return <>Loading...</>;
     }
 
-    if (!this.lndStore.opened) {
-      return <>Connecting...</>;
-    }
-
     return (
       <StoreContext.Provider value={{
         globalsStore: this.globalsStore,
