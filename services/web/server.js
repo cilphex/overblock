@@ -16,10 +16,11 @@ router.get('/heartbeat', async function(ctx) {
   ctx.body = 'beating';
 });
 
-// Route serving up public env vars
+// Route serving up public env vars.
+// In development, this route is proxied in webpack.dev.js
+// for the webpack dev server.
 router.get('/globals', async function(ctx) {
   ctx.body = {
-    PORT: process.env.PORT,
     LND_GATEWAY_HOST: process.env.LND_GATEWAY_HOST,
   };
 });

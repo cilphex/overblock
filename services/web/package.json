@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel-node ./node_modules/webpack/bin/webpack --config webpack.prod.js",
-    "start:dev": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --config webpack.dev.js",
+    "start:dev": "LND_GATEWAY_HOST=localhost:4040 babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --config webpack.dev.js",
     "start:flat": "yarn build && env PORT=3000 LND_GATEWAY_HOST=localhost:4040 yarn start:prod",
     "start:prod": "babel-node server.js"
   },
@@ -41,8 +41,8 @@
     "sass-loader": "8.0.0",
     "style-loader": "1.0.1",
     "webpack": "^4.44.1",
-    "webpack-cli": "3.3.11",
-    "webpack-dev-server": "3.10.3",
-    "webpack-merge": "^5.0.9"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.3"
   }
 }
