@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel-node ./node_modules/webpack/bin/webpack --config webpack.prod.js",
-    "start:dev": "LND_GATEWAY_HOST=localhost:4040 babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --config webpack.dev.js",
+    "start:dev": "LND_GATEWAY_HOST=ws://localhost:4040 babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open --config webpack.dev.js",
     "start:flat": "yarn build && env PORT=3000 LND_GATEWAY_HOST=localhost:4040 yarn start:prod",
     "start:prod": "babel-node server.js"
   },

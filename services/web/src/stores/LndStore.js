@@ -12,12 +12,18 @@ class LndStore {
   @observable error = null;
 
   init(lndGatewayHost) {
-    this.lndGatewayHost = `ws://${lndGatewayHost}`;
+    this.lndGatewayHost = lndGatewayHost;
     this.setupSocket();
   }
 
   setupSocket() {
-    this.ws = new WebSocket(this.lndGatewayHost);
+    try {
+      this.ws = new WebSocket(this.lndGatewayHost);
+    }
+    catch(err) {
+      this.error = 'Could not create socket connection';
+      return;
+    }
     this.ws.onopen = this.handleSocketOpen;
     this.ws.onmessage = this.handleSocketMessage;
     this.ws.onerror = this.handleSocketError;
