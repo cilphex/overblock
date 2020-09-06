@@ -99,6 +99,7 @@ class App {
     const invoiceStream = Lightning.subscribeInvoices();
 
     // Heartbeat REST route
+    expressApp.get('/', this.handleRoot);
     expressApp.get('/heartbeat', this.handleHeartbeat);
 
     invoiceStream.on('data', this.handleInvoiceStreamData);
@@ -108,6 +109,12 @@ class App {
     wss.on('connection', this.handleServerConnection);
     wss.on('error', this.handleServerError);
   }
+
+  handleRoot = async (req, res) => {
+    const Lightning = grpc.services.Lightning;
+    const info = await Lightning.getInfo();
+    res.send(`<pre>${JSON.stringify(info, null, 2)}</pre>`);
+  };
 
   handleHeartbeat = (req, res) => {
     res.send('beating');
