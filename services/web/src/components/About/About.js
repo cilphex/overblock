@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 
@@ -38,7 +38,7 @@ class About extends React.Component {
         anyway.</p>
 
         <h2>Is it open source?</h2>
-        <p>Yes. {'<add link when ready>'}</p>
+        <p><a href="https://github.com/cilphex/overblock" target="_blank">Yes</a>.</p>
 
         <div className={styles.footer}>
           <Link to="/">Home</Link>

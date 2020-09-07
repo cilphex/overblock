@@ -249,9 +249,10 @@ class Home extends React.Component {
 
         {/* Footer */}
         <div className={styles.footer}>
-          <p>Overblock.com ®</p>
+          <p>Overblock.dev ®</p>
           <p>Buy fake items using the Lightning network on testnet.</p>
           <p><Link to="/about">About</Link></p>
+          <p><a href="https://github.com/cilphex/overblock" target="_blank">Open source</a></p>
         </div>
       </div>
     );

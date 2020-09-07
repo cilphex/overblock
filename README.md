@@ -5,8 +5,9 @@
 Overblock is a development example website for receiving bitcoin lightning
 payments, inspired by Acinq's [starblocks](https://starblocks.acinq.co/).
 
-See the [guides](guides/) for a walkthrough. Guides for production deployment
-coming later.
+See the [guides](guides/) for a walkthrough. But please note:
+- The project is in development and they may be slightly out of date
+- Production guides are coming later
 
 ### Microservices
 
