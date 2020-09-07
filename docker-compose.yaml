@@ -63,7 +63,7 @@ services:
     depends_on:
       - lnd
     ports:
-      - "4000:80"
+      - "5000:80"
     command: ["./startup-scripts/start-rtl.sh"]
 
   # Other services that could be added here:
