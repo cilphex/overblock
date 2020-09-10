@@ -124,7 +124,7 @@ class App {
   // GRPC
 
   handleInvoiceStreamData = (data) => {
-    console.log('handleInvoiceStreamData!');
+    console.log('handleInvoiceStreamData', data);
 
     const ws = this.getSocketForPaymentRequest(data.payment_request);
 
@@ -144,7 +144,7 @@ class App {
   };
 
   handleInvoiceStreamError = (err) => {
-    console.log('handleInvoiceStreamError');
+    console.log('handleInvoiceStreamError', err);
   };
 
   async createInvoice(ws, sats, memo) {

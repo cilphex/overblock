@@ -50,18 +50,18 @@ class Home extends React.Component {
   expiryTextView = () => {
     const { invoice } = this.context.lndStore;
 
-    if (invoice.expiry === undefined) {
+    if (invoice.secondsRemaining === undefined) {
       return "...";
     }
 
-    if (invoice.expiry <= 0) {
+    if (invoice.secondsRemaining <= 0) {
       return <div className={styles.danger}>
         This invoice has expired
       </div>;
     }
 
-    const minutes = Math.floor(invoice.expiry / 60);
-    let seconds = (invoice.expiry % 60);
+    const minutes = Math.floor(invoice.secondsRemaining / 60);
+    let seconds = (invoice.secondsRemaining % 60);
         seconds = seconds < 10 ? `0${seconds}` : seconds;
     const waitingClass = minutes < 5 ? styles.danger : '';
 

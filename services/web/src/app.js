@@ -5,10 +5,12 @@ import { observer } from 'mobx-react';
 import StoreContext from 'lib/StoreContext';
 import GlobalsStore from 'stores/GlobalsStore';
 import LndStore from 'stores/LndStore';
+import styles from './app.scss';
 
 // Components
 import Home from './components/Home';
 import About from './components/About';
+import ConnectionStatus from './components/ConnectionStatus';
 
 @observer
 class App extends React.Component {
@@ -28,7 +30,11 @@ class App extends React.Component {
 
   render() {
     if (!this.globalsStore.globals) {
-      return <>Loading...</>;
+      return (
+        <div className={styles.loading}>
+          Loading...
+        </div>
+      );
     }
 
     return (
@@ -36,14 +42,17 @@ class App extends React.Component {
         globalsStore: this.globalsStore,
         lndStore: this.lndStore,
       }}>
-        <Router>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Router>
+        <div className={styles.app}>
+          <Router>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Router>
+          <ConnectionStatus />
+        </div>
       </StoreContext.Provider>
     );
   }

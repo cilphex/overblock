@@ -4,7 +4,7 @@ import QRCode from 'qrcode';
 class LndStore {
   lndGatewayHost = null;
   ws = null;
-  expiry_interval = null;
+  expiration_interval = null;
 
   @observable open = false;
   @observable waitingForInvoice = false;
@@ -14,6 +14,7 @@ class LndStore {
   init(lndGatewayHost) {
     this.lndGatewayHost = lndGatewayHost;
     this.setupSocket();
+    window.ws = this.ws;
   }
 
   setupSocket() {
@@ -85,58 +86,60 @@ class LndStore {
     this.waitingForInvoice = true;
   };
 
-  startExpiryCountdown = () => {
-    console.log('start expiry countdown');
-    const { expiry } = this.invoice;
-    if (expiry == undefined || expiry <= 0) {
-      return;
-    }
-    clearInterval(this.expiry_interval);
-    this.expiry_interval = setInterval(this.updateExpiryCountdown, 1000);
+  startExpirationCountdown = () => {
+    console.log('start expiration countdown');
+    clearInterval(this.expiration_interval);
+    this.expiration_interval = setInterval(this.updateExpirationCountdown, 1000);
   };
 
-  updateExpiryCountdown = () => {
-    this.invoice.expiry -= 1;
-    if (this.invoice.expiry <= 0) {
-      clearInterval(this.expiry_interval);
+  updateExpirationCountdown = () => {
+    this.invoice.secondsRemaining -= 1;
+    if (this.invoice.settled || this.invoice.secondsRemaining <= 0) {
+      clearInterval(this.expiration_interval);
+      console.log('clear expiration countdown')
+    }
+    else {
+      console.log('seconds remaining', this.invoice.secondsRemaining);
     }
   };
 
   clearInvoice = () => {
-    clearInterval(this.expiry_interval);
+    console.log('clear invoice');
+    clearInterval(this.expiration_interval);
     this.invoice = null;
   };
 
-  async handleInvoiceMessage(data) {
-    console.log('handleInvoiceMessage');
+  async handleInvoiceMessage(invoiceData) {
+    console.log('handleInvoiceMessage', invoiceData);
     this.waitingForInvoice = false;
 
     // We're only interested in generic messages that are updates to an invoice
     // that we're already looking at. That should be the case at this point
     // anyway, but have this check just in case.
+    // Copy the expiry value to a secondary field that won't be overwritten with
+    // further updates later on.
     if (!this.invoice) {
-      data.qrcode_url = await QRCode.toDataURL(data.payment_request);
-      this.invoice = data;
+      this.invoice = invoiceData;
+      this.invoice.secondsRemaining = this.invoice.expiry;
+      this.invoice.qrcode_url = await QRCode.toDataURL(this.invoice.payment_request);
+      this.startExpirationCountdown();
+      console.log('created invoice', this.invoice.payment_request);
     }
 
     // If an invoice already exists...
     else {
       // Check to ensure the payment request matches. We shouldn't receive
       // messages that don't match anyway, but check just in case.
-      if (data.payment_request != this.invoice.payment_request) {
+      if (invoiceData.payment_request != this.invoice.payment_request) {
         return;
       }
       // Update our invoice with the new data. Use object.assign to copy fields
       // rather than reassigning the whole object. Will preserve fields added by
       // us, like invoice.qrcode_url
       else {
-        Object.assign(this.invoice, data);
+        Object.assign(this.invoice, invoiceData);
       }
     }
-
-    // Update the expiry interval. If you don't clear the existing interval
-    // first, multiple intervals might get created
-    this.startExpiryCountdown();
   };
 }
 
