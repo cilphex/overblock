@@ -2,13 +2,13 @@ export default [
   {
     name: 'Patio Furniture',
     description: 'Outdoor lounging in style.',
-    price: 10000,
+    price: 100,
     image: 'patio-furniture.png'
   },
   {
     name: 'A Couch',
     description: 'For couching.',
-    price: 402,
+    price: 10,
     image: 'furniture.png'
   },
   // {
