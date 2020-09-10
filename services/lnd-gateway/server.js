@@ -124,7 +124,7 @@ class App {
   // GRPC
 
   handleInvoiceStreamData = (data) => {
-    console.log('handleInvoiceStreamData', data);
+    console.log('handleInvoiceStreamData');
 
     const ws = this.getSocketForPaymentRequest(data.payment_request);
 
