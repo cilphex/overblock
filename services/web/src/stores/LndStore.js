@@ -107,6 +107,7 @@ class LndStore {
     console.log('clear invoice');
     clearInterval(this.expiration_interval);
     this.invoice = null;
+    this.waitingForInvoice = false;
   };
 
   async handleInvoiceMessage(invoiceData) {

@@ -99,12 +99,12 @@ class Home extends React.Component {
   };
 
   buyButtonView = () => {
-    const { product } = this.state;
-    const { waitingForInvoice } = this.context.lndStore;
+    const { open, waitingForInvoice } = this.context.lndStore;
+    const disabled = !open || waitingForInvoice;
 
     return (
       <div className={styles.buyButton}>
-        <button onClick={this.createInvoice} disabled={waitingForInvoice}>
+        <button onClick={this.createInvoice} disabled={disabled}>
           Buy it
         </button>
       </div>
@@ -202,25 +202,11 @@ class Home extends React.Component {
     );
   };
 
-  errorView = () => {
-    const { error, clearError } = this.context.lndStore;
-
-    return (
-      <div className={styles.error}>
-        Error: {error}
-        {' '}
-        (<a onClick={clearError}>Clear</a>)
-      </div>
-    );
-  };
-
   render() {
-    const { error } = this.context.lndStore;
     const { product } = this.state;
 
     return (
       <div className={styles.content}>
-        {error && this.errorView()}
         {product && this.checkoutView()}
 
         <div className={styles.main}>

@@ -20,19 +20,19 @@ div.connectionStatus {
     background: #000;
   }
 
-  div.connected {
+  &.connected {
     span.dot {
       background: #00c800;
     }
   }
 
-  div.disconnected {
+  &.disconnected {
     span.dot {
       background: red;
     }
   }
 
-  div.error {
+  &.error {
     color: #fff;
     background: red;
   }

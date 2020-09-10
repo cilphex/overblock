@@ -240,7 +240,9 @@ div.content {
           }
 
           &:disabled {
+            background: #67c0ff;
             opacity: 0.6;
+            cursor: default;
           }
         }
       }

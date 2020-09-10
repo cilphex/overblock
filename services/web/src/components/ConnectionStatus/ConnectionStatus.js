@@ -7,13 +7,13 @@ import styles from './ConnectionStatus.scss';
 class ConnectionStatus extends React.Component {
   static contextType = StoreContext;
 
-  get readyView() {
+  get connectedView() {
     return <div className={styles.connected}>
       Connected <span className={styles.dot}></span>
     </div>;
   }
 
-  get loadingView() {
+  get disconnectedView() {
     return <div className={styles.disconnected}>
       Disconnected <span className={styles.dot}></span>
     </div>;
@@ -32,17 +32,25 @@ class ConnectionStatus extends React.Component {
       error
     } = this.context.lndStore;
 
+    let view;
+    let className;
+
+    if (error) {
+      view = this.errorView;
+      className = styles.error;
+    }
+    else if (!open) {
+      view = this.disconnectedView;
+      className = styles.disconnected;
+    }
+    else {
+      view = this.connectedView;
+      className = styles.connected;
+    }
+
     return (
-      <div className={styles.connectionStatus}>
-        {(() => {
-          if (error) {
-            return this.errorView;
-          }
-          if (!open) {
-            return this.loadingView;
-          }
-          return this.readyView;
-        })()}
+      <div className={`${styles.connectionStatus} ${className}`}>
+        {view}
       </div>
     )
   }
