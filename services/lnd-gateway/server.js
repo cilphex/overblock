@@ -147,6 +147,11 @@ class App {
     console.log('handleInvoiceStreamError', err);
   };
 
+  keepAlive(ws) {
+    const message = { message_type: 'keep_alive' };
+    ws.send(JSON.stringify(message));
+  }
+
   async createInvoice(ws, sats, memo) {
     const params = {
       memo,
@@ -170,7 +175,7 @@ class App {
     // client sockets) for the one that matches, so we can send updates to only
     // that one.
     ws.payment_request = invoice.payment_request;
-  };
+  }
 
   // ==========================================================================
   // Server
@@ -217,7 +222,7 @@ class App {
     try {
       switch (data.type) {
         case 'keep_alive':
-          // Do nothing
+          this.keepAlive(ws);
           break;
         case 'create_invoice':
           await this.createInvoice(ws, data.sats, data.memo);
@@ -246,7 +251,7 @@ class App {
       message: err.message,
     };
     ws.send(JSON.stringify(message));
-  }
+  };
 }
 
 new App();

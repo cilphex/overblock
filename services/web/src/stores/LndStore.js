@@ -49,6 +49,8 @@ class LndStore {
     const data = JSON.parse(message.data);
 
     switch(data.message_type) {
+      case 'keep_alive':
+        break;
       case 'invoice':
         this.handleInvoiceMessage(data);
         break;
