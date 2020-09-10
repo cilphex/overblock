@@ -152,6 +152,10 @@ class App {
       memo,
     };
 
+    if (!sats) {
+      return this.sendError(ws, new Error('sats is missing'));
+    }
+
     if (sats >= 1) {
       params.value = sats;
     }
@@ -207,12 +211,14 @@ class App {
       data = JSON.parse(data);
     }
     catch(err) {
-      // I forget, what does this do?
-      return ws.emit('error', err);
+      return this.sendError(ws, err);
     }
 
     try {
       switch (data.type) {
+        case 'keep_alive':
+          // Do nothing
+          break;
         case 'create_invoice':
           await this.createInvoice(ws, data.sats, data.memo);
           break;
