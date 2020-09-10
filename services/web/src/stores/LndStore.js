@@ -28,16 +28,6 @@ class LndStore {
     this.ws.onmessage = this.handleSocketMessage;
     this.ws.onerror = this.handleSocketError;
     this.ws.onclose = this.handleSocketClose;
-    this.setupSocketKeepAlive();
-  }
-
-  setupSocketKeepAlive() {
-    setInterval(() => {
-      if (this.ws && this.ws.readyState == WebSocket.OPEN) {
-        const message = { type: 'keep_alive' };
-        this.ws.send(JSON.stringify(message));
-      }
-    }, 10000);
   }
 
   handleSocketOpen = () => {
@@ -49,8 +39,6 @@ class LndStore {
     const data = JSON.parse(message.data);
 
     switch(data.message_type) {
-      case 'keep_alive':
-        break;
       case 'invoice':
         this.handleInvoiceMessage(data);
         break;

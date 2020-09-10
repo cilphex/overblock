@@ -147,11 +147,6 @@ class App {
     console.log('handleInvoiceStreamError', err);
   };
 
-  keepAlive(ws) {
-    const message = { message_type: 'keep_alive' };
-    ws.send(JSON.stringify(message));
-  }
-
   async createInvoice(ws, sats, memo) {
     const params = {
       memo,
@@ -221,9 +216,6 @@ class App {
 
     try {
       switch (data.type) {
-        case 'keep_alive':
-          this.keepAlive(ws);
-          break;
         case 'create_invoice':
           await this.createInvoice(ws, data.sats, data.memo);
           break;
