@@ -14,7 +14,6 @@ class LndStore {
   init(lndGatewayHost) {
     this.lndGatewayHost = lndGatewayHost;
     this.setupSocket();
-    window.ws = this.ws;
   }
 
   setupSocket() {
@@ -29,6 +28,16 @@ class LndStore {
     this.ws.onmessage = this.handleSocketMessage;
     this.ws.onerror = this.handleSocketError;
     this.ws.onclose = this.handleSocketClose;
+    this.setupSocketKeepAlive();
+  }
+
+  setupSocketKeepAlive() {
+    setInterval(() => {
+      if (this.ws && this.ws.readyState == WebSocket.OPEN) {
+        const message = { type: 'keep_alive' };
+        this.ws.send(JSON.stringify(message));
+      }
+    }, 10000);
   }
 
   handleSocketOpen = () => {
@@ -45,6 +54,7 @@ class LndStore {
         break;
       case 'error':
         this.handleErrorMessage(data);
+        break;
       default:
         console.log(`got unknown messageType: ${data.message_type}`);
     }
