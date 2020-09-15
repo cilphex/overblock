@@ -29,14 +29,6 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.globalsStore.globals) {
-      return (
-        <div className={styles.loading}>
-          Loading...
-        </div>
-      );
-    }
-
     return (
       <StoreContext.Provider value={{
         globalsStore: this.globalsStore,

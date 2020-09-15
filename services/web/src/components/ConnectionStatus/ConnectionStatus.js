@@ -7,26 +7,44 @@ import styles from './ConnectionStatus.scss';
 class ConnectionStatus extends React.Component {
   static contextType = StoreContext;
 
+  get loadingGlobalsView() {
+    return (
+      <div className={styles.disconnected}>
+        Loading globals... <span className={styles.dot}></span>
+      </div>
+    );
+  }
+
   get connectedView() {
-    return <div className={styles.connected}>
-      Connected <span className={styles.dot}></span>
-    </div>;
+    return (
+      <div className={styles.connected}>
+        Connected <span className={styles.dot}></span>
+      </div>
+    );
   }
 
   get disconnectedView() {
-    return <div className={styles.disconnected}>
-      Disconnected <span className={styles.dot}></span>
-    </div>;
+    return (
+      <div className={styles.disconnected}>
+        Disconnected <span className={styles.dot}></span>
+      </div>
+    );
   }
 
   get errorView() {
     const { error } = this.context.lndStore;
-    return <div className={styles.error}>
-      Error: {error}
-    </div>;
+    return (
+      <div className={styles.error}>
+        Error: {error}
+      </div>
+    );
   }
 
   render() {
+    const {
+      globals
+    } = this.context.globalsStore;
+
     const {
       open,
       error
@@ -35,7 +53,11 @@ class ConnectionStatus extends React.Component {
     let view;
     let className;
 
-    if (error) {
+    if (!globals) {
+      view = this.loadingGlobalsView;
+      className = styles.loadingGlobals;
+    }
+    else if (error) {
       view = this.errorView;
       className = styles.error;
     }
