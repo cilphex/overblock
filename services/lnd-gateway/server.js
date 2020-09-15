@@ -41,11 +41,9 @@ if ((certPath || macaroonPath) && (base64Cert || base64Macaroon)) {
 
 const cert = (() => {
   if (certPath) {
-    console.log('certPath', certPath);
     return certPath;
   }
   if (base64Cert) {
-    console.log('base64Cert', base64Cert);
     return Buffer.from(base64Cert, 'base64').toString();
   }
   console.log('ERROR: cert undefined');
@@ -54,11 +52,9 @@ const cert = (() => {
 
 const macaroon = (() => {
   if (macaroonPath) {
-    console.log('macaroonPath', macaroonPath);
     return macaroonPath;
   }
   if (base64Macaroon) {
-    console.log('base64Macaroon', base64Macaroon);
     return Buffer.from(base64Macaroon, 'base64').toString('hex');
   }
   console.log('ERROR: macaroon undefined');
@@ -147,7 +143,7 @@ class App {
     console.log('handleInvoiceStreamError', err);
   };
 
-  async createInvoice(ws, sats, memo) {
+  createInvoice = async (ws, sats, memo) => {
     const params = {
       memo,
     };
