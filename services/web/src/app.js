@@ -20,11 +20,15 @@ class App extends React.Component {
     this.globalsStore = new GlobalsStore();
     this.lndStore = new LndStore();
 
-    this.globalsStore.init().then(this.setupLndStore);
+    this.setup();
   }
 
-  setupLndStore = () => {
-    const lndGatewayHost = this.globalsStore.globals.LND_GATEWAY_HOST;
+  async setup() {
+    await this.globalsStore.init();
+
+    const { globals } = this.globalsStore;
+    const lndGatewayHost = globals.LND_GATEWAY_HOST;
+
     this.lndStore.init(lndGatewayHost);
   }
 

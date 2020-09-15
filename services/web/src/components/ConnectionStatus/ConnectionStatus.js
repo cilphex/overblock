@@ -53,13 +53,13 @@ class ConnectionStatus extends React.Component {
     let view;
     let className;
 
-    if (!globals) {
-      view = this.loadingGlobalsView;
-      className = styles.loadingGlobals;
-    }
-    else if (error) {
+    if (error) {
       view = this.errorView;
       className = styles.error;
+    }
+    else if (!globals) {
+      view = this.loadingGlobalsView;
+      className = styles.loadingGlobals;
     }
     else if (!open) {
       view = this.disconnectedView;
