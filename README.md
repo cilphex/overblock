@@ -9,6 +9,8 @@ See the [guides](guides/) for a walkthrough. But please note:
 - The project is in development and they may be slightly out of date
 - Production guides are coming later
 
+A live version can be viewed at [overblock.dev](https://www.overblock.dev).
+
 ### Microservices
 
 Overblock is written as a collection of microservices. Since some of the
